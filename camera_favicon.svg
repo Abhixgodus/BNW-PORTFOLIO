@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Minimal camera logo</title>
+  <desc id="desc">A clean line-art camera icon with a large circular lens.</desc>
+  <style>
+    .camera-outline { stroke: #292825; }
+    .camera-lens { fill: #ECEAE5; }
+    .camera-dot { fill: #292825; }
+    @media (prefers-color-scheme: dark) {
+      .camera-outline { stroke: #E5E2DC; }
+      .camera-lens { fill: #141414; }
+      .camera-dot { fill: #E5E2DC; }
+    }
+  </style>
+  <g class="camera-outline" fill="none" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M86 178h92l28-48h100l28 48h92c24 0 44 20 44 44v152c0 24-20 44-44 44H86c-24 0-44-20-44-44V222c0-24 20-44 44-44Z"/>
+    <path d="M102 178v-25c0-10 8-18 18-18h54"/>
+    <circle cx="256" cy="298" r="92"/>
+    <circle cx="256" cy="298" r="68"/>
+    <path d="M398 220h28"/>
+  </g>
+  <circle class="camera-lens" cx="256" cy="298" r="42"/>
+  <path d="M224 274c16-18 39-27 62-25" fill="none" stroke="#7C7C76" stroke-width="12" stroke-linecap="round" opacity=".65"/>
+  <circle class="camera-dot" cx="302" cy="315" r="7"/>
+</svg>

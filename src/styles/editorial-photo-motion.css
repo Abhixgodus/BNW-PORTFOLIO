@@ -1,0 +1,29 @@
+/* A stationary crop window, with one scroll owner on the image itself. */
+.ed-site [data-ed-photo-layer] {
+  overflow: hidden;
+  contain: paint;
+}
+.ed-site [data-ed-photo-layer] > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  transition: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ed-site .is-photo-active [data-ed-photo-layer] > img {
+    will-change: transform;
+  }
+}
+@media (min-width: 761px) {
+  .ed-site [data-ed-photo-mobile] [data-ed-photo-layer] > img {
+    will-change: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ed-site [data-ed-photo-layer] > img {
+    transform: none;
+    will-change: auto;
+  }
+}

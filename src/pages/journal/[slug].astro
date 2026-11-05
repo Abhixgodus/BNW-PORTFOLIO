@@ -1,0 +1,9 @@
+---
+import Editorial from "../../layouts/Editorial.astro";
+import { journalPosts } from "../../data/journal.js";
+export function getStaticPaths() {
+  return journalPosts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+---
+<Editorial page="post" post={post} />

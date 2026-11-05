@@ -1,0 +1,1160 @@
+@font-face {
+  font-family: "Cormorant Unicase";
+  src: url("/fonts/cormorant-unicase-regular-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Unicase";
+  src: url("/fonts/cormorant-unicase-light-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pinyon Script";
+  src: url("/fonts/pinyon-script-regular-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hurricane";
+  src: url("/fonts/hurricane-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brittany Signature";
+  src: url("/fonts/brittany-signature-script.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Keep the independent hero and shared routes. Jolla supplies the serif
+   and small handwritten accents for the photographic journal below it. */
+.ed-home .ed-journal,
+.ed-site .ed-journal-footer {
+  --journal-serif: var(--editorial-serif);
+  --journal-script: "Pinyon Script", cursive;
+  --journal-space: clamp(88px, 8vw, 120px);
+  --journal-width: 1200px;
+  --journal-gutter: clamp(20px, 4vw, 72px);
+}
+.ed-home .ed-journal {
+  --journal-gap-extra: clamp(24px, 2.3vw, 36px);
+  padding-top: calc(clamp(88px, 9vw, 144px) + 13px + var(--journal-gap-extra));
+}
+.ed-home .ed-journal-section {
+  width: calc(100% - var(--journal-gutter) * 2);
+  max-width: var(--journal-width);
+  margin-inline: auto;
+}
+.ed-home .ed-journal-section + .ed-journal-section {
+  margin-top: calc(var(--journal-space) + var(--journal-gap-extra));
+}
+.ed-home .ed-journal-about + .ed-journal-thought {
+  margin-top: calc(
+    var(--journal-space) + clamp(20px, 2.3vw, 32px) + var(--journal-gap-extra)
+  );
+}
+.ed-home .ed-journal-notes + .ed-journal-entries {
+  margin-top: calc(clamp(140px, 15.9123vw, 225px) + var(--journal-gap-extra));
+}
+.ed-home .ed-journal-heading {
+  font-family: var(--journal-serif);
+  font-weight: 400;
+  font-size: clamp(44px, 4.7vw, 68px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.ed-home .ed-journal-script {
+  font-family: var(--journal-script);
+  font-weight: 400;
+  font-size: clamp(30px, 2.7vw, 40px);
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.ed-home .ed-journal-section-head {
+  text-align: center;
+  margin-bottom: clamp(32px, 3.8vw, 54px);
+}
+.ed-home .ed-journal-media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #111;
+}
+.ed-home .ed-journal-media img {
+  display: block;
+  transition: transform 1000ms var(--ease);
+}
+.ed-home .ed-journal-photo-link {
+  display: block;
+  min-width: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.ed-home .ed-journal-body {
+  color: var(--editorial-copy);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+.ed-home .ed-journal-body p + p {
+  margin-top: 18px;
+}
+.ed-home .ed-journal-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: opacity 250ms ease;
+}
+.ed-home .ed-journal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: 51px;
+  padding: 3px 20px;
+  border-radius: 0;
+  background: #ececea;
+  color: #111;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: background-color 250ms ease;
+}
+
+.ed-home .ed-journal-about {
+  --about-portrait-offset: clamp(44px, 3.68vw, 56px);
+  max-width: min(860px, max(640px, calc((100svh - 184px) * 1.2)));
+  scroll-margin-top: calc(var(--header-height) + 16px);
+  text-align: center;
+}
+.ed-home .ed-journal-about-intro {
+  position: relative;
+  z-index: 2;
+  padding-top: 28px;
+}
+.ed-home .ed-journal-about-portraits {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5%;
+  align-items: start;
+  margin-top: 24px;
+}
+.ed-home .ed-journal-portrait,
+.ed-home .ed-home-camera {
+  aspect-ratio: 3 / 4;
+}
+.ed-home .ed-home-portraits {
+  margin-top: var(--about-portrait-offset);
+}
+.ed-home .ed-home-portrait-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.ed-home .ed-home-portrait-slide.is-previous {
+  opacity: 1;
+}
+.ed-home .ed-home-portrait-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity var(--portrait-fade-duration)
+    cubic-bezier(0.45, 0, 0.55, 1);
+}
+.ed-home .ed-journal-about-description {
+  width: 100%;
+  max-width: none;
+  margin: 40px auto 0;
+  font-size: 15px;
+  text-align: left;
+}
+.ed-home .ed-about-copy-phone {
+  display: none;
+}
+.ed-home .ed-journal-about-portraits img {
+  object-position: center;
+}
+.ed-home .ed-journal-greeting {
+  margin-bottom: -12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ed-home .ed-journal-signature {
+  width: 96%;
+  margin: 0 auto;
+  font-family: "Brittany Signature", cursive;
+  font-size: 0;
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-transform: none;
+  transform: rotate(-5deg);
+  transform-origin: center;
+}
+.ed-signature-artwork {
+  position: relative;
+  display: inline-block;
+}
+.ed-home .ed-journal-signature .ed-signature-artwork {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9.2;
+}
+.ed-home .ed-journal-signature .ed-signature-label {
+  position: absolute;
+  font-size: 1px;
+}
+.ed-signature-label {
+  opacity: 0;
+}
+.ed-signature-drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.ed-signature-stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+:is(.ed-home, .ed-about).has-editorial-motion .ed-signature-stroke {
+  opacity: 0;
+  stroke-dashoffset: 1;
+}
+:is(.ed-home, .ed-about).has-editorial-motion
+  .ed-signature-artwork.is-revealed
+  .ed-signature-stroke {
+  animation: ed-signature-write var(--write-duration)
+    cubic-bezier(0.35, 0, 0.3, 1) var(--write-delay) both;
+}
+@keyframes ed-signature-write {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  2% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+.ed-home .ed-journal-about-card {
+  position: absolute;
+  z-index: 2;
+  top: calc((100% - var(--about-portrait-offset)) * 0.65 + 16px);
+  left: 40.5%;
+  width: 54%;
+  display: flex;
+  align-items: center;
+  padding: clamp(18px, 1.625vw, 23px) clamp(20px, 2vw, 28px);
+  border: 1px solid var(--black);
+  background: var(--paper);
+  color: var(--black);
+  text-align: left;
+  --reveal-delay: 150ms;
+}
+.ed-home .ed-journal-about-lead {
+  font-family: var(--journal-serif);
+  font-size: clamp(20px, 1.7vw, 24px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.ed-home .ed-journal-about-more {
+  display: none;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+@media (min-width: 701px) {
+  .ed-home .ed-home-portraits > img,
+  .ed-home .ed-home-portraits > picture > img {
+    transform: scale(1.2);
+    transform-origin: center top;
+    transition: none;
+  }
+  .ed-home .ed-home-camera img {
+    transform: translate(-24.5%, -14%) scale(1.333333);
+    transform-origin: left top;
+    transition: none;
+  }
+}
+
+/* The statement stands on its own, with content-led height and a wider scale. */
+.ed-home .ed-journal-thought-composition {
+  padding-block: calc(61px + clamp(16px, 2vw, 28px));
+}
+.ed-home .ed-journal-thought-center {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  text-align: center;
+}
+.ed-home .ed-journal-thought-center > .ed-journal-script {
+  position: relative;
+  margin-bottom: 28px;
+}
+.ed-home .ed-journal-quote-mark {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--journal-serif);
+  font-size: clamp(44px, 4vw, 56px);
+  font-weight: 400;
+  line-height: 0.7;
+  pointer-events: none;
+}
+.ed-home .ed-journal-thought-copy {
+  margin: 0;
+  font-family: var(--journal-serif);
+  font-size: clamp(48px, 6.65vw, 96px);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.ed-home .ed-journal-thought-copy > span {
+  display: block;
+}
+.ed-home .ed-journal-thought-center .ed-journal-body {
+  max-width: 39ch;
+  margin: 26px auto 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Restore the established scroll-controlled Publications rail, without the
+   old waterfall lead. A scoped native scroll timeline owns its movement. */
+.ed-home .ed-publications {
+  --publication-title-size: clamp(58px, 8vw, 118px);
+  --publication-top-space: max(105px, 10svh);
+  margin-top: calc(clamp(40px, 4vw, 64px) + var(--journal-gap-extra));
+  scroll-margin-top: 88px;
+}
+.ed-home .ed-publications-sticky {
+  position: relative;
+  padding: var(--publication-top-space) 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.ed-home .has-publication-scroll .ed-publications-chapter {
+  height: calc(100svh + var(--publication-travel, 200svh));
+}
+.ed-home .has-publication-scroll .ed-publications-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-bottom: 24px;
+}
+.ed-home .ed-publications-marquee {
+  overflow: clip;
+  font-family: var(--journal-serif);
+  font-size: var(--publication-title-size);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.14;
+  flex: none;
+}
+.ed-home .ed-publications-type {
+  transform-origin: center;
+}
+.ed-home .ed-publications-type > span {
+  display: block;
+  white-space: nowrap;
+  width: max-content;
+}
+.ed-home .ed-publications-window {
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.ed-home .has-publication-scroll .ed-publications-window {
+  overflow: clip;
+}
+.ed-home .ed-publications-track {
+  display: flex;
+  gap: clamp(20px, 2.2vw, 32px);
+  padding: 0 var(--journal-gutter) 8px;
+  width: max-content;
+}
+.ed-home .ed-publication {
+  display: block;
+  flex: none;
+  /* Reserve the title and wrapping captions inside the sticky view. */
+  width: min(
+    clamp(240px, 31vw, 520px),
+    41.6svh,
+    calc(
+      (
+          100svh - var(--publication-top-space) -
+            var(--publication-title-size) * 1.14 - 94px
+        ) *
+        0.8
+    )
+  );
+  text-align: left;
+  cursor: pointer;
+}
+.ed-home .ed-publication-picture {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #111;
+}
+.ed-home .ed-publication-warp,
+.ed-home .ed-publication-image {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+.ed-home .ed-publication-image {
+  transition: transform 900ms var(--ease);
+}
+.ed-home .ed-publication-blur {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.ed-home .ed-publication-blur[hidden] {
+  display: none;
+}
+.ed-home .has-scroll-velocity :is(.ed-publication-warp, .ed-publications-type) {
+  will-change: transform;
+}
+.ed-home .has-scroll-velocity .ed-publication-blur {
+  will-change: opacity;
+}
+.ed-home .ed-publication-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 17px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ed-home .ed-publication-caption > span:last-child {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.ed-home .ed-publications + .ed-journal-section {
+  margin-top: calc(var(--journal-space) + 27px + var(--journal-gap-extra));
+}
+
+/* Isabella's open three-column composition, with personal notes in place
+   of testimonial claims and no decorative rules. */
+.ed-home .ed-journal-notes-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 72px);
+}
+.ed-home .ed-journal-note-photo {
+  width: 88px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 28px;
+}
+.ed-home .ed-journal-note-thought {
+  font-family: var(--journal-serif);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: pretty;
+  text-transform: uppercase;
+}
+.ed-home .ed-journal-note-label {
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-top: 24px;
+  color: var(--muted);
+}
+
+/* Each journal photograph has the same top and bottom edge. */
+.ed-home .ed-journal-entry-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(20px, 2.6vw, 38px);
+}
+.ed-home .ed-journal-entry-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+.ed-home .ed-journal-entry-copy {
+  container-type: inline-size;
+  padding-top: 22px;
+}
+.ed-home .ed-journal-place {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.ed-home .ed-journal-entry h3 {
+  font-family: var(--journal-serif);
+  font-size: min(30px, 8.3cqi);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+}
+.ed-home .ed-journal-entry h3 a {
+  display: inline-flex;
+  align-items: center;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  min-height: 44px;
+  transition: opacity 250ms ease;
+}
+.ed-home .ed-journal-entry .ed-journal-body {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.ed-home .ed-home-journal-cta {
+  margin-top: clamp(32px, 3.4vw, 48px);
+  text-align: center;
+}
+.ed-home .ed-home-journal-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 188px;
+  min-height: 46px;
+  padding: 12px 24px;
+  background: var(--paper);
+  color: var(--black);
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+
+.ed-home .ed-journal-closing {
+  position: relative;
+  isolation: isolate;
+  margin-top: calc(var(--journal-space) + var(--journal-gap-extra));
+  display: grid;
+  place-items: center;
+  padding: clamp(112px, 15.9123vw, 225px) var(--journal-gutter);
+  min-height: min(760px, 88svh);
+}
+.ed-home .ed-journal-closing-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.ed-home .ed-journal-closing-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.55);
+}
+.ed-home .ed-journal-closing-photo img {
+  filter: grayscale(1);
+  object-position: 50% 54%;
+}
+.ed-home .ed-journal-closing-copy {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+.ed-home .ed-journal-closing-copy > .ed-journal-script {
+  margin-bottom: 36px;
+}
+.ed-home .ed-journal-closing blockquote {
+  margin: 0;
+  font-family: var(--journal-serif);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.ed-site .ed-journal-footer {
+  --footer-gutter: clamp(24px, 4vw, 64px);
+  --footer-photo-gap: clamp(10px, 1.25vw, 20px);
+  padding: 0;
+  background: var(--black);
+}
+.ed-site .ed-journal-footer-strip {
+  overflow: hidden;
+}
+.ed-site .ed-journal-footer-track {
+  display: flex;
+  width: max-content;
+  animation: ed-footer-filmstrip 75s linear infinite;
+  animation-play-state: paused;
+}
+.ed-site .ed-journal-footer-strip.is-running .ed-journal-footer-track {
+  animation-play-state: running;
+}
+.ed-site .ed-journal-footer-group {
+  display: flex;
+  gap: var(--footer-photo-gap);
+  padding-right: var(--footer-photo-gap);
+}
+.ed-site .ed-journal-footer-print {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--black);
+  flex: none;
+  width: calc((100vw - var(--footer-photo-gap) * 5) / 5);
+  aspect-ratio: 1;
+}
+@keyframes ed-footer-filmstrip {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ed-site .ed-journal-footer-inner {
+  margin-inline: auto;
+  padding: clamp(84px, calc(5.7vw + 20px), 108px) var(--footer-gutter);
+}
+.ed-site .ed-journal-colophon {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+.ed-site .ed-journal-footer-nav,
+.ed-site .ed-journal-footer-connect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+}
+.ed-site .ed-journal-footer-connect {
+  align-items: flex-end;
+  text-align: right;
+}
+.ed-site .ed-journal-footer-label {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.ed-site .ed-journal-footer-nav a,
+.ed-site .ed-journal-footer-connect a,
+.ed-site .ed-journal-footer-contact {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  transition: opacity 250ms ease;
+}
+.ed-site .ed-journal-footer-studio {
+  padding-top: 24px;
+  text-align: center;
+}
+.ed-site .ed-journal-footer-identity {
+  display: inline-block;
+  font-family: var(--journal-serif);
+  font-size: clamp(32px, 4.17822vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.ed-site .ed-journal-footer-description {
+  margin-top: 29px;
+  color: var(--editorial-copy);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.ed-site .ed-journal-footer-contact {
+  margin-top: 16px;
+  font-size: 12px;
+}
+.ed-site .ed-journal-footer-base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  padding: 18px var(--footer-gutter);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.ed-site .ed-journal-footer-tools {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 42px);
+}
+.ed-site .ed-journal-footer-base :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  transition: color 250ms ease;
+}
+.ed-site .ed-journal-footer-base .ed-journal-footer-motion {
+  display: none;
+}
+.ed-site.has-editorial-motion
+  .ed-journal-footer-base
+  .ed-journal-footer-motion {
+  display: inline-flex;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ed-site .ed-journal-footer-base :is(a, button):hover {
+    color: var(--paper);
+  }
+}
+
+/* One entrance per copy/print group. The shared observer reveals each once;
+   Publications alone has a scroll timeline, with no nested reveal on its rail. */
+.ed-home.has-editorial-motion
+  :is(.ed-journal, .ed-journal-footer)
+  [data-ed-reveal] {
+  transform: translate3d(0, var(--reveal-lift, 0px), 0);
+  transition:
+    opacity 1100ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(
+    var(--reveal-delay, 0ms) + var(--reveal-order, 0) * 80ms
+  );
+}
+.ed-home.has-editorial-motion
+  :is(.ed-journal, .ed-journal-footer)
+  [data-ed-reveal].is-revealed {
+  transform: none;
+}
+.ed-home
+  :is(
+    .ed-journal-notes,
+    .ed-journal-entries,
+    .ed-journal-closing,
+    .ed-journal-footer
+  ) {
+  --reveal-lift: 8px;
+}
+:is(.ed-home, .ed-about).has-editorial-motion
+  .ed-signature-artwork[data-ed-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ed-home .ed-home-journal-link:hover {
+    opacity: 0.75;
+  }
+  .ed-site .ed-journal-footer a:hover {
+    opacity: 0.65;
+  }
+  .ed-home .ed-journal-photo-link:hover img,
+  .ed-home .ed-publication:hover .ed-publication-image {
+    transform: scale(1.025);
+  }
+  .ed-home
+    :is(.ed-journal-link, .ed-journal-footer a, .ed-journal-entry h3 a):hover {
+    opacity: 0.65;
+  }
+  .ed-home .ed-journal-button:hover {
+    background: #fff;
+  }
+}
+
+@media (min-width: 761px) {
+  .ed-home .ed-journal {
+    padding-top: calc(
+      clamp(88px, 9vw, 144px) - 28px + var(--journal-gap-extra)
+    );
+  }
+  .ed-home .ed-journal-about-description {
+    padding-top: 15px;
+  }
+  .ed-home .ed-journal-about-description p + p {
+    margin-top: 30px;
+  }
+  .ed-home .ed-journal-thought-composition {
+    padding-block: 30px;
+  }
+  .ed-home .ed-publication-caption > span:first-child {
+    font-family: var(--journal-serif);
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .ed-home .ed-publications + .ed-journal-notes {
+    margin-top: calc(var(--journal-space) - 36px + var(--journal-gap-extra));
+  }
+  .ed-home .ed-journal-notes + .ed-journal-entries {
+    margin-top: calc(
+      clamp(140px, 15.9123vw, 225px) - 38px + var(--journal-gap-extra)
+    );
+  }
+}
+@media (max-width: 1000px) {
+  .ed-home .ed-journal-thought-copy {
+    font-size: clamp(48px, 6.65vw, 68px);
+  }
+}
+@media (max-width: 760px) {
+  .ed-home .ed-publications {
+    --publication-title-size: 14vw;
+    --publication-top-space: max(96px, 12svh);
+  }
+  .ed-home .ed-publications-sticky {
+    gap: 20px;
+  }
+  .ed-home .ed-publication {
+    width: min(
+      76vw,
+      48svh,
+      calc(
+        (
+            100svh - var(--publication-top-space) -
+              var(--publication-title-size) * 1.14 - 94px
+          ) *
+          0.8
+      )
+    );
+  }
+  .ed-home .ed-publication-caption {
+    gap: 8px;
+    font-size: 12px;
+  }
+  .ed-home .ed-publication-caption > span:last-child {
+    font-size: 10px;
+  }
+  .ed-home .ed-publication-caption > span:first-child {
+    font-family: var(--journal-serif);
+    font-size: 20px;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+}
+@media (max-width: 700px) {
+  .ed-home .ed-journal,
+  .ed-site .ed-journal-footer {
+    --journal-space: 88px;
+  }
+  .ed-home .ed-journal {
+    padding-top: 10px;
+  }
+  .ed-home .ed-journal-heading {
+    font-size: clamp(40px, 8.8vw, 58px);
+  }
+  .ed-home .ed-journal-about-intro {
+    padding-top: 0;
+  }
+  .ed-home .ed-journal-greeting {
+    margin-bottom: -17px;
+  }
+  .ed-home .ed-journal-signature {
+    width: 96%;
+    margin-top: 28px;
+  }
+  .ed-home .ed-journal-signature .ed-signature-artwork {
+    aspect-ratio: 8.7552 / 1.233;
+  }
+  .ed-home .ed-journal-about-portraits {
+    display: block;
+    margin-top: 32px;
+  }
+  .ed-home .ed-home-portraits {
+    width: min(100%, 360px);
+    margin: 0 auto;
+  }
+  .ed-home .ed-home-camera {
+    display: none;
+  }
+  .ed-home .ed-journal-about-card {
+    position: static;
+    display: block;
+    width: 100%;
+    margin: 32px auto 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--paper);
+    text-align: center;
+  }
+  .ed-home .ed-journal-about-lead {
+    font-size: clamp(21px, 6vw, 28px);
+  }
+  .ed-home .ed-journal-about-description.ed-journal-body {
+    display: block;
+    max-width: 40ch;
+    margin: 26px auto 0;
+    font-size: 14px;
+    text-align: center;
+  }
+  .ed-home .ed-journal-about-more {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 124px;
+    min-height: 42px;
+    margin-top: 24px;
+    padding: 3px 18px;
+    background: var(--paper);
+    color: var(--black);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .ed-home .ed-about-copy-desktop {
+    display: none;
+  }
+  .ed-home .ed-about-copy-phone {
+    display: inline;
+  }
+  .ed-home .ed-journal-body {
+    max-width: 45ch;
+  }
+  .ed-home .ed-journal-thought-composition {
+    padding-block: 65px;
+  }
+  .ed-home .ed-journal-thought-center > .ed-journal-script {
+    margin-top: 4px;
+    margin-bottom: 25px;
+  }
+  .ed-home .ed-journal-thought-copy {
+    font-size: clamp(28px, 9.115vw, 48px);
+    line-height: 1.12;
+  }
+  .ed-home .ed-journal-thought-center .ed-journal-body {
+    max-width: 29ch;
+    font-size: 15px;
+    margin-top: 22px;
+  }
+  .ed-home .ed-journal-notes-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 42px;
+  }
+  .ed-home .ed-journal-note-photo {
+    width: 76px;
+    margin-bottom: 22px;
+  }
+  .ed-home .ed-journal-note-thought {
+    font-size: clamp(30px, 7.5vw, 38px);
+    max-width: 24ch;
+  }
+  .ed-home .ed-journal-note-label {
+    margin-top: 18px;
+  }
+  .ed-home .ed-journal-closing {
+    min-height: 600px;
+    padding: 112px 24px;
+  }
+  .ed-home .ed-journal-closing blockquote {
+    font-size: clamp(33px, 8vw, 48px);
+    line-height: 1.15;
+  }
+  .ed-home .ed-journal-closing-copy > .ed-journal-script {
+    margin-bottom: 28px;
+  }
+  .ed-site .ed-journal-colophon {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px 30px;
+  }
+  .ed-site .ed-journal-footer-studio {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: 0;
+  }
+  .ed-site .ed-journal-footer-identity {
+    font-size: clamp(32px, 7.4vw, 44px);
+  }
+  .ed-site .ed-journal-footer-inner {
+    padding-block: 130px 48px;
+  }
+  .ed-site .ed-journal-footer-print {
+    width: 38vw;
+  }
+  .ed-site .ed-journal-footer-base {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 24px;
+    padding-block: 18px 12px;
+    text-align: center;
+  }
+  .ed-site .ed-journal-footer-base > span {
+    flex-basis: 100%;
+  }
+  .ed-site .ed-journal-footer-tools {
+    gap: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .ed-home .ed-journal-thought-composition {
+    padding-block: 120px;
+  }
+  .ed-home .ed-journal-thought-center > .ed-journal-script {
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+  .ed-home .ed-journal-thought-center .ed-journal-body {
+    width: min(100%, 264px);
+    max-width: none;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .ed-home .ed-journal-notes + .ed-journal-entries {
+    margin-top: 96px;
+  }
+  .ed-home .ed-home-journal-cta {
+    margin-top: 56px;
+  }
+  .ed-home .ed-home-journal-link {
+    min-width: 164px;
+    min-height: 42px;
+    padding: 10px 28px;
+    font-size: 12px;
+  }
+  .ed-home .ed-publications + .ed-journal-notes {
+    margin-top: calc(24px + var(--journal-gap-extra));
+  }
+  .ed-home .has-publication-scroll + .ed-journal-notes {
+    margin-top: calc(-95px + var(--journal-gap-extra));
+  }
+  .ed-home .ed-journal-note {
+    text-align: center;
+  }
+  .ed-home .ed-journal-note-photo,
+  .ed-home .ed-journal-note-thought {
+    margin-inline: auto;
+  }
+  .ed-home .ed-journal-note:nth-child(2) {
+    margin-block: 20px;
+  }
+  .ed-home .ed-journal-notes-grid {
+    padding-bottom: 50px;
+  }
+  .ed-home .ed-journal-entry-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 60px;
+  }
+  .ed-home .ed-journal-section-head {
+    margin-bottom: 28px;
+  }
+  .ed-home .ed-journal-entry-copy {
+    padding-top: 28px;
+  }
+  .ed-home .ed-journal-entries > .ed-journal-section-head {
+    margin-bottom: 44px;
+  }
+  .ed-home .ed-journal-entries .ed-journal-heading {
+    font-size: 38px;
+    margin-bottom: -20px;
+  }
+  .ed-home .ed-journal-entry .ed-journal-body {
+    max-width: 38ch;
+  }
+  .ed-home .ed-journal-closing {
+    min-height: 865px;
+  }
+  .ed-home .ed-journal-closing blockquote {
+    font-size: clamp(32px, 9.9vw, 38px);
+  }
+  .ed-home .ed-journal-closing-copy > .ed-journal-script {
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce),
+  (orientation: landscape) and (max-height: 480px) {
+  .ed-home .ed-publications .ed-publications-chapter {
+    height: auto;
+  }
+  .ed-home .ed-publications .ed-publications-sticky {
+    position: relative;
+    height: auto;
+    padding-block: 40px;
+  }
+  .ed-home .ed-publications .ed-publications-window {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .ed-home .ed-publication {
+    width: min(76vw, 360px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ed-home .ed-home-portrait-slide.is-active {
+    transition: none;
+  }
+  .ed-site .ed-journal-footer-track {
+    animation: none;
+  }
+  .ed-site.has-editorial-motion
+    .ed-journal-footer-base
+    .ed-journal-footer-motion {
+    display: none;
+  }
+  .ed-site .ed-journal-footer :is(a, button) {
+    transition: none;
+  }
+  :is(.ed-home, .ed-about).has-editorial-motion
+    .ed-signature-artwork.is-revealed
+    .ed-signature-stroke,
+  :is(.ed-home, .ed-about).has-editorial-motion .ed-signature-stroke {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .ed-home.has-editorial-motion
+    :is(.ed-journal, .ed-journal-footer)
+    [data-ed-reveal],
+  .ed-home.has-editorial-motion
+    :is(.ed-journal, .ed-journal-footer)
+    [data-ed-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ed-home .ed-journal-media img,
+  .ed-home .ed-journal-button,
+  .ed-home .ed-journal-link,
+  .ed-home .ed-home-journal-link,
+  .ed-home .ed-publication-image {
+    transition: none;
+  }
+  .ed-home .ed-journal-photo-link:hover img,
+  .ed-home .ed-publication:hover .ed-publication-image {
+    transform: none;
+  }
+}

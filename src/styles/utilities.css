@@ -1,0 +1,9 @@
+/* Preserve the approved browser defaults and cascade: intentionally no Preflight. */
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+@source "../components";
+/* The framework boundary creates no layout or backdrop root. */
+astro-island {
+  display: contents;
+}

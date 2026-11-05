@@ -1,0 +1,74 @@
+---
+import "../styles/utilities.css";
+import "../styles/concept.css";
+import "../styles/home-journal.css";
+import "../styles/editorial-about.css";
+import "../styles/editorial-contact.css";
+import "../styles/editorial-photo-motion.css";
+import "../styles/editorial-journal.css";
+import EditorialSite from "../components/editorial/EditorialSite.jsx";
+import series from "../data/editorial-series.json";
+const { page = "home", post = null } = Astro.props;
+const firstCover = `/_concept/covers/${series[0].slug}-mono`;
+const labels = { home: "Photography", gallery: "Gallery", about: "About", contact: "Inquire", blog: "The Blog", post: post?.title };
+const descriptions = {
+  home: "Street and landscape photographs by Abhimanyu Sharma, based in Kolkata, India.",
+  gallery: "Seven photographic collections and selected colour and monochrome photographs by Abhimanyu Sharma.",
+  about: "Abhimanyu Sharma, an engineering student and photographer from Kolkata, India.",
+  contact: "Contact Abhimanyu Sharma about photographs, prints and projects.",
+  blog: "Photographs and notes from walks around Kolkata and travels in Delhi and Sikkim, by Abhimanyu Sharma.",
+  post: post?.excerpt,
+};
+---
+<!doctype html>
+<html lang="en" data-editorial-page={page}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>
+      document.documentElement.classList.add("ed-js");
+      if (document.documentElement.dataset.editorialPage === "home") {
+        const navigation = performance.getEntriesByType("navigation")[0];
+        let internalArrival = navigation?.type === "back_forward";
+        if (navigation?.type !== "reload" && document.referrer) {
+          const previous = new URL(document.referrer);
+          internalArrival ||= previous.origin === location.origin &&
+            (/^\/concept(?:\/|$)/.test(previous.pathname) ||
+              /^\/(?:gallery|about|contact)?\/?$/.test(previous.pathname) ||
+              /^\/journal(?:\/|$)/.test(previous.pathname));
+        }
+        // Classify before the first paint: internal links must never flash the
+        // server-rendered counter. A refresh always starts a new loading run.
+        document.documentElement.dataset.edHomeEntry = internalArrival
+          ? "navigation"
+          : "load";
+        if (!internalArrival)
+          document.documentElement.classList.add("ed-entry-locked");
+      }
+      // A missing or interrupted client bundle must not strand the photographs
+      // underneath a loading screen. CSS keeps this fallback hydration-safe.
+      window.setTimeout(() => {
+        const site = document.querySelector(".ed-site");
+        if (site && !site.classList.contains("is-ready"))
+          document.documentElement.classList.add("ed-entry-timeout");
+      }, 6000);
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={descriptions[page]} />
+    <meta property="og:title" content={`${labels[page]} — Abhimanyu Sharma`} />
+    <meta property="og:description" content={descriptions[page]} />
+    <meta property="og:type" content={page === "post" ? "article" : "website"} />
+    <title>{labels[page]} — Abhimanyu Sharma</title>
+    <link rel="icon" type="image/svg+xml" href="/camera_favicon.svg" />
+    <link rel="preload" as="font" href="/fonts/raleway-variable-latin.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/brittany-signature-script.ttf" type="font/ttf" crossorigin />
+    {page === "home" && <link rel="preload" as="font" href="/fonts/new-icon-serif.otf" type="font/otf" crossorigin />}
+    {page === "home" && <link rel="preload" as="font" href="/fonts/new-icon-script.otf" type="font/otf" crossorigin />}
+    <link rel="preload" as="font" href="/fonts/cormorant-unicase-regular-latin.woff2" type="font/woff2" crossorigin />
+    {page === "home" && <link rel="preload" as="image" href={`${firstCover}-1280.webp`} imagesrcset={`${firstCover}-640.webp 640w, ${firstCover}-1280.webp 1280w`} imagesizes="(max-width:760px) 72vw, 24vw" fetchpriority="high" />}
+  </head>
+  <body>
+    <EditorialSite page={page} post={post} client:load />
+  </body>
+</html>

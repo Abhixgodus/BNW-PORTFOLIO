@@ -1,0 +1,74 @@
+{
+  "collections": [
+    {
+      "key": "SIKKIM",
+      "slug": "sikkim",
+      "title": "Sikkim",
+      "genre": "Mountain landscapes",
+      "location": "Sikkim, India",
+      "description": "Rivers through deep valleys, mountains behind cloud, and the changing light between them.",
+      "cover": "gallery/SIKKIM/SIKKIM COLOUR-30.JPG",
+      "position": "50% 50%"
+    },
+    {
+      "key": "ESPLANADE",
+      "slug": "esplanade",
+      "title": "Esplanade",
+      "genre": "Life on the streets",
+      "location": "Kolkata, India",
+      "description": "A walk through the centre of Kolkata: passing faces, roadside stalls, and a city always in motion.",
+      "cover": "gallery/ESPLANADE/ESPLANADE COLOUR-6.JPG",
+      "position": "50% 45%"
+    },
+    {
+      "key": "KUMARTULI",
+      "slug": "kumartuli",
+      "title": "Kumartuli",
+      "genre": "The making of a tradition",
+      "location": "Kolkata, India",
+      "description": "Inside the workshops of Kumartuli, clay takes shape in the hands of the people who know it best.",
+      "cover": "gallery/KUMARTULI/KUMARTULI COLOUR-7.JPG",
+      "position": "50% 45%"
+    },
+    {
+      "key": "PRINCEP GHAT",
+      "slug": "princep-ghat",
+      "title": "Princep Ghat",
+      "genre": "Evenings by the river",
+      "location": "Kolkata, India",
+      "description": "Boats cross the Hooghly as the light changes, beneath the long sweep of Vidyasagar Setu.",
+      "cover": "gallery/PRINCEP GHAT/PRINCEPGHAT COLOUR - 27.JPG",
+      "position": "50% 50%"
+    },
+    {
+      "key": "MULLICK MARKET",
+      "slug": "mullick-market",
+      "title": "Mullick Market",
+      "genre": "Flowers, faces & movement",
+      "location": "Kolkata, India",
+      "description": "Flowers change hands in the crowded lanes of the market, where colour and everyday work meet.",
+      "cover": "gallery/MULLICK MARKET/MULLICKMARKET COLOUR-24.JPG",
+      "position": "50% 45%"
+    },
+    {
+      "key": "MULLICK GHAT",
+      "slug": "mullick-ghat",
+      "title": "Howrah Bridge",
+      "genre": "Along the Hooghly",
+      "location": "Kolkata, India",
+      "description": "A little space beside the river: people at work, passing boats, and the bridge above it all.",
+      "cover": "gallery/MULLICK GHAT/MULLICKGHAT COLOUR-8.JPG",
+      "position": "50% 45%"
+    },
+    {
+      "key": "DELHI",
+      "slug": "delhi",
+      "title": "Delhi",
+      "genre": "Architecture & reflection",
+      "location": "Delhi, India",
+      "description": "Stone, water, and the geometry of Delhi’s historic spaces, seen through the shifting light of the day.",
+      "cover": "gallery/DELHI/HUMAYUN'S TOMB COLOUR-8.JPG",
+      "position": "50% 50%"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+.DS_Store
+
+# Local Netlify folder
+.netlify
+
+# React static build and local verification products
+node_modules/
+dist/
+.astro/
+.astro-public/
+test-results/
+playwright-report/
+
+# Cloudflare generated output
+.cloudflare-dist/
+cloudflare/node_modules/
+.wrangler/
+
+# Local design review and browser evidence
+output/
+.playwright-cli/

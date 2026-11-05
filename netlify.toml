@@ -1,0 +1,12 @@
+[build]
+  # Branch previews now run on Cloudflare; preserve the existing Netlify URLs.
+  ignore = "exit 0"
+  command = "pnpm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24.22.1"
+  PNPM_VERSION = "11.25.0"
+
+[build.processing.html]
+  pretty_urls = true
