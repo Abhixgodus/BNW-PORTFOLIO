@@ -873,7 +873,7 @@
     --journal-space: 88px;
   }
   .ed-home .ed-journal {
-    padding-top: 10px;
+    padding-top: 80px;
   }
   .ed-home .ed-journal-heading {
     font-size: clamp(40px, 8.8vw, 58px);

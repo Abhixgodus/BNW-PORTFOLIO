@@ -13,7 +13,8 @@ for (const folder of ["images", "fonts"])
     recursive: true,
     filter: (source) => path.basename(source) !== ".DS_Store",
   });
-await cp(path.join(projectRoot, "camera_favicon.svg"), path.join(publicDir, "camera_favicon.svg"));
+for (const file of ["camera_favicon.svg", "favicon.ico", "apple-touch-icon.png"])
+  await cp(path.join(projectRoot, file), path.join(publicDir, file));
 async function photos(directory, relative = "gallery") {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const source = path.join(directory, entry.name);
