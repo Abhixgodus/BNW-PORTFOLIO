@@ -3,15 +3,6 @@ import photographs from "../../data/home-hero.json";
 
 const HOLD_MS = 10000;
 const FADE_MS = 3000;
-const topics = [
-  "Places",
-  "People",
-  "Cultures",
-  "Moments",
-  "Landscapes",
-  "Animals",
-];
-
 function HeroPhotograph({ index, priority }) {
   const photograph = photographs[index];
   const base = `/_concept/hero/${photograph.slug}`;
@@ -206,9 +197,8 @@ export default function HomeHero() {
       <h1
         id="ed-hero-title"
         className="ed-story-heading"
-        aria-label="Landscape and street moments from ordinary lives"
+        aria-label="Moments from ordinary lives"
       >
-        <span className="ed-story-kicker">Landscape and street</span>
         <span className="ed-story-heading-line">
           <span>Moments</span>
           <span className="ed-story-script">from</span>
@@ -220,26 +210,6 @@ export default function HomeHero() {
           <span className="ed-story-lives">Lives</span>
         </span>
       </h1>
-      <div className="ed-story-marquee">
-        <div className="ed-story-marquee-track">
-          {[0, 1, 2, 3].map((repeat) => (
-            <span
-              className="ed-story-topics"
-              key={repeat}
-              aria-hidden={repeat > 0 ? true : undefined}
-            >
-              {topics.map((topic) => (
-                <span className="ed-story-topic" key={topic}>
-                  <span>{topic}</span>
-                  <span className="ed-story-dot" aria-hidden="true">
-                    ·
-                  </span>
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

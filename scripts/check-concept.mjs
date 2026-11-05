@@ -87,8 +87,9 @@ const rootHtml = await readFile(path.join(outDir, "index.html"), "utf8");
 if (
   !rootHtml.includes('data-editorial-page="home"') ||
   !rootHtml.includes('id="ed-hero-title"') ||
-  !rootHtml.includes("Landscape and street moments from ordinary lives") ||
-  !rootHtml.includes("ed-story-marquee") ||
+  !rootHtml.includes("Moments from ordinary lives") ||
+  rootHtml.includes("ed-story-marquee") ||
+  rootHtml.includes("ed-story-kicker") ||
   rootHtml.includes('class="ed-loading"')
 ) {
   throw new Error("The default homepage must be the current editorial concept");
