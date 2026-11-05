@@ -5,6 +5,7 @@ import { createPortfolioScrollMotion } from "../../runtime/helpers.js";
 // zoom. Keep that composition on an ordinary image layer, without its WebGL
 // canvas or an extra scroll container. Copy and controls never join this clock.
 const ISABELLA = {
+  home: { intensity: 3, rotation: 115, zoomStart: 0, zoomEnd: 6 },
   hero: { intensity: 19, rotation: 295, zoomStart: 0, zoomEnd: 16 },
   about: { intensity: 7, rotation: 172, zoomStart: 2, zoomEnd: 23 },
 };
@@ -64,7 +65,11 @@ export function useLargePhotoMotion(rootRef, page) {
         if (scene.hasAttribute("data-ed-photo-mobile") && innerWidth > 760)
           return [];
         const layer = scene.querySelector("[data-ed-photo-layer]");
-        const image = layer?.querySelector("img");
+        // Crossfading Home images share one stable scroll layer; their own
+        // gentle time-based zoom and opacity continue independently inside it.
+        const image = layer?.hasAttribute("data-ed-photo-target")
+          ? layer
+          : layer?.querySelector("img");
         if (!image || !layer.clientWidth || !layer.clientHeight) return [];
         const preset = ISABELLA[scene.dataset.edPhotoMotion] || ISABELLA.about;
         const amount = preset.intensity * 0.005 * strength;
@@ -72,9 +77,17 @@ export function useLargePhotoMotion(rootRef, page) {
         const width = layer.clientWidth,
           height = layer.clientHeight;
         const rect = scene.getBoundingClientRect();
-        const top = rect.top + scrollY;
+        const home = scene.dataset.edPhotoMotion === "home";
+        // Sticky positioning changes the hero's viewport rect while scrolling.
+        // Its normal-flow parent keeps the scroll range stable on remeasure.
+        const top =
+          (home ? scene.parentElement.getBoundingClientRect().top : rect.top) +
+          scrollY;
         const start = Math.max(0, top - viewportHeight);
-        const end = Math.max(start + 1, top + rect.height - header);
+        const end = Math.max(
+          start + 1,
+          top + rect.height - (home ? 0 : header),
+        );
         const keyframes = Array.from({ length: 9 }, (_, index) => {
           const progress = index / 8;
           const zoom =
@@ -97,7 +110,7 @@ export function useLargePhotoMotion(rootRef, page) {
             keyframes,
             start,
             end,
-            easing: "cubic-bezier(.4,0,.2,1)",
+            easing: home ? "linear" : "cubic-bezier(.4,0,.2,1)",
           },
         ];
       });

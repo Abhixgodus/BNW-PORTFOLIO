@@ -6,10 +6,11 @@ import "../styles/editorial-about.css";
 import "../styles/editorial-contact.css";
 import "../styles/editorial-photo-motion.css";
 import "../styles/editorial-journal.css";
+import "../styles/home-hero.css";
 import EditorialSite from "../components/editorial/EditorialSite.jsx";
-import series from "../data/editorial-series.json";
+import heroPhotographs from "../data/home-hero.json";
 const { page = "home", post = null } = Astro.props;
-const firstCover = `/_concept/covers/${series[0].slug}-mono`;
+const firstHero = `/_concept/hero/${heroPhotographs[0].slug}`;
 const labels = { home: "Photography", gallery: "Gallery", about: "About", contact: "Inquire", blog: "The Blog", post: post?.title };
 const descriptions = {
   home: "Street and landscape photographs by Abhimanyu Sharma, based in Kolkata, India.",
@@ -26,26 +27,6 @@ const descriptions = {
     <meta charset="utf-8" />
     <script is:inline>
       document.documentElement.classList.add("ed-js");
-      if (document.documentElement.dataset.editorialPage === "home") {
-        const navigation = performance.getEntriesByType("navigation")[0];
-        let internalArrival = navigation?.type === "back_forward";
-        if (navigation?.type !== "reload" && document.referrer) {
-          const previous = new URL(document.referrer);
-          internalArrival ||= previous.origin === location.origin &&
-            (/^\/concept(?:\/|$)/.test(previous.pathname) ||
-              /^\/(?:gallery|about|contact)?\/?$/.test(previous.pathname) ||
-              /^\/journal(?:\/|$)/.test(previous.pathname));
-        }
-        // Classify before the first paint: internal links must never flash the
-        // server-rendered counter. A refresh always starts a new loading run.
-        document.documentElement.dataset.edHomeEntry = internalArrival
-          ? "navigation"
-          : "load";
-        if (!internalArrival)
-          document.documentElement.classList.add("ed-entry-locked");
-      }
-      // A missing or interrupted client bundle must not strand the photographs
-      // underneath a loading screen. CSS keeps this fallback hydration-safe.
       window.setTimeout(() => {
         const site = document.querySelector(".ed-site");
         if (site && !site.classList.contains("is-ready"))
@@ -64,10 +45,11 @@ const descriptions = {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="preload" as="font" href="/fonts/raleway-variable-latin.woff2" type="font/woff2" crossorigin />
     <link rel="preload" as="font" href="/fonts/brittany-signature-script.ttf" type="font/ttf" crossorigin />
-    {page === "home" && <link rel="preload" as="font" href="/fonts/new-icon-serif.otf" type="font/otf" crossorigin />}
-    {page === "home" && <link rel="preload" as="font" href="/fonts/new-icon-script.otf" type="font/otf" crossorigin />}
+    {page === "home" && <link rel="preload" as="font" href="/fonts/la-luxes-serif.woff" type="font/woff" crossorigin />}
+    {page === "home" && <link rel="preload" as="font" href="/fonts/la-luxes-script.woff" type="font/woff" crossorigin />}
     <link rel="preload" as="font" href="/fonts/cormorant-unicase-regular-latin.woff2" type="font/woff2" crossorigin />
-    {page === "home" && <link rel="preload" as="image" href={`${firstCover}-1280.webp`} imagesrcset={`${firstCover}-640.webp 640w, ${firstCover}-1280.webp 1280w`} imagesizes="(max-width:760px) 72vw, 24vw" fetchpriority="high" />}
+    {page === "home" && <link rel="preload" as="image" href={`${firstHero}-desktop-1920.webp`} imagesrcset={`${firstHero}-desktop-1280.webp 1280w, ${firstHero}-desktop-1920.webp 1920w, ${firstHero}-desktop-2560.webp 2560w`} imagesizes="100vw" media="(min-width:761px), (orientation:landscape)" fetchpriority="high" />}
+    {page === "home" && <link rel="preload" as="image" href={`${firstHero}-phone-960.webp`} imagesrcset={`${firstHero}-phone-640.webp 640w, ${firstHero}-phone-960.webp 960w`} imagesizes="100vw" media="(max-width:760px) and (orientation:portrait)" fetchpriority="high" />}
   </head>
   <body>
     <EditorialSite page={page} post={post} client:load />

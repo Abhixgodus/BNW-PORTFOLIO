@@ -299,6 +299,14 @@
   text-underline-offset: 4px;
 }
 @media (min-width: 701px) {
+  .ed-home .ed-journal-about-intro {
+    padding-top: 15px;
+    margin-bottom: 45px;
+  }
+  .ed-home .ed-journal-greeting {
+    margin-top: -50px;
+    margin-bottom: -6px;
+  }
   .ed-home .ed-home-portraits > img,
   .ed-home .ed-home-portraits > picture > img {
     transform: scale(1.2);
@@ -890,6 +898,7 @@
   }
   .ed-home .ed-journal-signature .ed-signature-artwork {
     aspect-ratio: 8.7552 / 1.233;
+    margin-bottom: 50px;
   }
   .ed-home .ed-journal-about-portraits {
     display: block;

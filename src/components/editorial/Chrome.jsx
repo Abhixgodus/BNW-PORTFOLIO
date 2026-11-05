@@ -18,15 +18,7 @@ export function Header({ page }) {
       destination.origin === location.origin &&
       destination.pathname.replace(/\/$/, "") !==
         location.pathname.replace(/\/$/, "");
-    // Keep the menu covering the outgoing document until navigation replaces it.
-    // Shared Home/Gallery transitions close it when their route state changes.
     if (open && changingPage) {
-      if (
-        page === "home" &&
-        destination.pathname.replace(/\/$/, "") === editorialLinks.gallery &&
-        scrollY > 1
-      )
-        closeMenu();
       return;
     }
     closeMenu();

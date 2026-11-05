@@ -8,40 +8,18 @@ import { usePhotoViewer } from "./usePhotoViewer.js";
 import { useEditorialMotion } from "./useEditorialMotion.js";
 import { useLargePhotoMotion } from "./useLargePhotoMotion.js";
 import { useState } from "react";
-import { useEditorialNavigation } from "./navigation.js";
 import { Journal, JournalPost } from "./Journal.jsx";
-export default function EditorialSite({
-  page: initialPage = "home",
-  post = null,
-}) {
-  const [page, setPage] = useState(initialPage);
-  const [routePage, setRoutePage] = useState(initialPage);
+export default function EditorialSite({ page = "home", post = null }) {
   const [galleryPreview, setGalleryPreview] = useState(null);
-  const { rootRef, loadingRef, progress } = useEditorialMotion(page);
+  const { rootRef } = useEditorialMotion(page);
   useLargePhotoMotion(rootRef, page);
   const { viewer, close, change, jump, openCollection } = usePhotoViewer();
-  useEditorialNavigation(
-    rootRef,
-    page,
-    setPage,
-    close,
-    setGalleryPreview,
-    setRoutePage,
-  );
   return (
     <div className={"fg-site ed-site ed-" + page} id="top" ref={rootRef}>
       <a className="fg-skip" href="#main">
         Skip to content
       </a>
-      {progress !== null && (
-        <div ref={loadingRef} className="ed-loading" aria-hidden="true">
-          <span>0%</span>
-          <i />
-        </div>
-      )}
-      <Header
-        page={["blog", "post"].includes(routePage) ? "journal" : routePage}
-      />
+      <Header page={["blog", "post"].includes(page) ? "journal" : page} />
       <main id="main">
         {page === "home" && <Home openCollection={openCollection} />}
         {page === "gallery" && (

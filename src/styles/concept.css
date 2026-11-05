@@ -1,5 +1,12 @@
 /* Editorial photography. Authored for Abhimanyu's pictures; one owner per state. */
 @font-face {
+  font-family: "Atelier Femme Serif";
+  src: url("/fonts/atelier-femme-serif.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
   font-family: "Raleway";
   src: url("/fonts/raleway-variable-latin.woff2") format("woff2");
   font-style: normal;
@@ -1241,10 +1248,12 @@ html.ed-js[data-ed-home-entry="load"] .ed-home:not(.has-entered) .fg-header {
       );
   }
   .ed-navigation a {
-    font-size: clamp(35px, 10.5vw, 64px);
-    font-weight: 300;
+    font-family: "Atelier Femme Serif", Georgia, serif;
+    font-size: 65px;
+    font-weight: 400;
     line-height: 1.1;
-    padding-block: 16px;
+    padding-block: 10px;
+    flex-shrink: 0;
     justify-content: flex-start;
     gap: 10px;
     min-height: 64px;
@@ -1647,11 +1656,6 @@ html.ed-js[data-ed-home-entry="load"] .ed-home:not(.has-entered) .fg-header {
   .ed-navigation {
     padding: 36px 22px 70px;
     overflow-y: auto;
-  }
-  .ed-navigation a {
-    font-size: clamp(25px, 6svh, 35px);
-    padding-block: 6px;
-    min-height: 44px;
   }
 }
 /* A short landscape window can scroll the page instead of reducing its
