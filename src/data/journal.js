@@ -1,7 +1,7 @@
 import entries from "./journal-posts.json" with { type: "json" };
 
 export const journalPosts = entries;
-export const journalSubjects = ["Kolkata", "Travel", "Walking"];
+export const journalSubjects = ["Kolkata", "Delhi", "Travel"];
 export const journalHref = "/concept/journal";
 export const journalSearchPhotograph = {
   src: "/gallery/PRINCEP GHAT/PRINCEPGHAT COLOUR - 24.JPG",

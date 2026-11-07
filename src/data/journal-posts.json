@@ -224,7 +224,7 @@
   {
     "slug": "i-took-the-long-way-home",
     "title": "I Took the Long Way Home",
-    "category": "Walking",
+    "category": "Kolkata",
     "location": "Kolkata",
     "excerpt": "A few photographs by the river, where there is always a reason to wait a little longer.",
     "opening": [
@@ -298,7 +298,7 @@
   {
     "slug": "a-walk-through-delhi",
     "title": "A Walk Through Delhi",
-    "category": "Travel",
+    "category": "Delhi",
     "location": "Delhi",
     "excerpt": "Red sandstone, shaded gateways and the people passing through, from Humayun’s Tomb to Qutub Minar.",
     "opening": [
@@ -371,10 +371,10 @@
   },
   {
     "slug": "another-day-in-kolkata",
-    "title": "Another Day in Kolkata",
+    "title": "Streets of Kumartuli",
     "category": "Kolkata",
     "location": "Kumartuli and the city",
-    "excerpt": "Workshop doors, unfinished figures and the ordinary things that make me stop with the camera.",
+    "excerpt": "A few stops around Kumartuli and the rest of Kolkata.",
     "opening": [
       "I took these photographs in Kumartuli and other parts of Kolkata. I usually walk around without a list of things to photograph. I stop when I notice a person, a workshop or something happening nearby. I often notice what is around a person before I decide where to stand. A doorway, a stack of goods or part of a figure can make me look at the scene for longer. The camera gives me a reason to pay closer attention to places I might otherwise walk past. I don’t need to find a new subject every time I go out.",
       "In Kumartuli, I looked at the people working among the clay figures. I wanted to include the rooms around them, as well as a few closer views of the work. The unfinished figures can take up nearly the whole view. I look for a place where I can still see the people and what they are doing among all of that work. Some pictures include most of the room, while others concentrate on the person and the figure in front of them. Looking at both helps me show the workshop without repeating the same view."
@@ -442,5 +442,153 @@
       }
     ],
     "quote": "I usually go out without a list of things to photograph."
+  },
+  {
+    "slug": "the-river-at-mullick-ghat",
+    "title": "The River at Mullick Ghat",
+    "category": "Kolkata",
+    "location": "Mullick Ghat",
+    "excerpt": "A few views of the river, Howrah Bridge and the people beside the water.",
+    "opening": [
+      "I went to Mullick Ghat to photograph the river and Howrah Bridge. I kept noticing the people along the bank too. There’s a porter carrying a load, two dogs near the water, and someone walking by the river as the light fades.",
+      "The pictures were made in different light. I photographed the bridge in black and white after dark, and in colour around sunset. I also wanted to keep the small boat in this set. It gives me a different view of the river."
+    ],
+    "ending": "I like having the people, the bridge and the river in the same set. They are all part of what I notice when I look back at Mullick Ghat.",
+    "cover": {
+      "src": "/gallery/MULLICK GHAT/MULLICKGHAT COLOUR-8.JPG",
+      "preview": "/_concept/albums/mullick-ghat/0",
+      "alt": "A lone figure walks beside the river as Howrah Bridge crosses the orange evening sky, framed by dark branches.",
+      "width": 3000,
+      "height": 2000,
+      "caption": "Howrah Bridge at dusk",
+      "collection": "mullick-ghat"
+    },
+    "images": [
+      {
+        "src": "/gallery/MULLICK GHAT/MULLICKGHAT BNW-1.JPG",
+        "preview": "/_concept/albums/mullick-ghat/1",
+        "alt": "A porter carries a broad load overhead beneath the iron span of Howrah Bridge.",
+        "width": 3000,
+        "height": 2000,
+        "caption": "A porter under the bridge",
+        "collection": "mullick-ghat",
+        "note": "I wanted to keep both the porter and the bridge in view. The ironwork fills the sky behind him."
+      },
+      {
+        "src": "/gallery/MULLICK GHAT/MULLICKGHAT BNW-3.JPG",
+        "preview": "/_concept/albums/mullick-ghat/5",
+        "alt": "Two dogs stand near two seated men on the riverbank, with Howrah Bridge across the water behind them.",
+        "width": 3000,
+        "height": 2000,
+        "caption": "Dogs and men beside the river",
+        "collection": "mullick-ghat",
+        "note": "I noticed the dogs first. The two men are sitting nearby, with the bridge stretching across the river behind them."
+      },
+      {
+        "src": "/gallery/MULLICK GHAT/MULLICKGHAT COLOUR-5.JPG",
+        "preview": "/_concept/albums/mullick-ghat/10",
+        "alt": "A lone figure walks along the amber riverbank beneath Howrah Bridge as the far shore fades into dusk.",
+        "width": 3000,
+        "height": 2000,
+        "caption": "Walking the amber riverbank",
+        "collection": "mullick-ghat",
+        "note": "The light on the water caught my eye. I left the figure small so the river and bridge would stay in the picture too."
+      },
+      {
+        "src": "/gallery/MULLICK GHAT/MULLICKGHAT BNW-6.JPG",
+        "preview": "/_concept/albums/mullick-ghat/11",
+        "alt": "Lights trace Howrah Bridge above the river, with a clear monochrome reflection below.",
+        "width": 3000,
+        "height": 2000,
+        "caption": "Bridge lights after dark",
+        "collection": "mullick-ghat",
+        "note": "I liked the bridge mirrored in the water. In black and white, the line of lights stands out."
+      },
+      {
+        "src": "/gallery/MULLICK GHAT/MULLICKGHAT COLOUR-13.JPG",
+        "preview": "/_concept/albums/mullick-ghat/18",
+        "alt": "A small boat passes beneath Howrah Bridge as purple and amber lights shimmer across the water after dark.",
+        "width": 3000,
+        "height": 2000,
+        "caption": "A boat beneath the bridge",
+        "collection": "mullick-ghat",
+        "note": "I noticed the coloured lights first, then spotted the boat beneath the bridge. I kept both in the frame."
+      }
+    ],
+    "quote": "I kept looking between the bridge and the riverbank."
+  },
+  {
+    "slug": "idols-taking-shape-in-kumartuli",
+    "title": "Idols Taking Shape in Kumartuli",
+    "category": "Kolkata",
+    "location": "Kumartuli",
+    "excerpt": "Painted faces and unfinished figures from inside the Kumartuli workshops.",
+    "opening": [
+      "On my visit to Kumartuli, I kept moving between unfinished clay figures and the painted ones. A few still had smooth faces; others had dark eyes, colour on their hands and small details around the brow. The rooms were packed, with figures close together and little space to step back. I found myself looking at one face, then noticing another just behind it. I took my time and photographed the details that made me stop.",
+      "I wanted to keep this set focused on the idols as they were being made. Some frames are close: an eye, a raised hand, a face seen through a gap. Others leave enough of the workshop in view to show how many figures were around. The light changed from one corner to another, so the same clay could look warm, blue or almost white. I left those differences in the pictures."
+    ],
+    "ending": "By the last picture, the face and raised arms fill most of the frame. Earlier, I had been looking at faces through gaps between beams and clay arms; here there is very little between me and the idol. I kept returning to the eyes, then to the hands still waiting for colour. Moving through the workshop, I saw plain clay beside painted faces, and each one was at a different point in the work. I came away thinking about those small changes. They are what I kept looking for while I made these photographs.",
+    "cover": {
+      "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 42.JPG",
+      "preview": "/_concept/albums/kumartuli/44",
+      "alt": "A pale Durga idol with raised arms emerges from a cool blue beam in the dark workshop.",
+      "width": 5000,
+      "height": 3333,
+      "caption": "A Durga idol beneath blue light",
+      "collection": "kumartuli"
+    },
+    "images": [
+      {
+        "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 33.JPG",
+        "preview": "/_concept/albums/kumartuli/39",
+        "alt": "A painted Durga idol raises one hand beneath violet workshop light, with the rest of the room falling into shadow.",
+        "width": 5000,
+        "height": 3333,
+        "caption": "Durga beneath violet light",
+        "collection": "kumartuli",
+        "note": "The raised hand caught my eye before I saw the face above it. I shifted until both fit into the frame. The violet light left most of the room in shadow, and I liked how the idol seemed to be looking past me. There was not much else to distract from that small moment."
+      },
+      {
+        "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 3.JPG",
+        "preview": "/_concept/albums/kumartuli/2",
+        "alt": "A painted goddess appears through a narrow workshop opening, with her golden face and raised hand catching the light.",
+        "width": 5000,
+        "height": 3333,
+        "caption": "An idol behind the awning",
+        "collection": "kumartuli",
+        "note": "I saw the face through a narrow opening and moved a little until the raised hand came into view too. The beams and other unfinished figures cut across the frame. I kept them there. They show how crowded the room was, and they make the face feel like something I had come upon rather than arranged."
+      },
+      {
+        "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 38.JPG",
+        "preview": "/_concept/albums/kumartuli/43",
+        "alt": "An unfinished goddess sits behind a ring of clay arms under soft green light.",
+        "width": 5000,
+        "height": 3333,
+        "caption": "The idol behind many hands",
+        "collection": "kumartuli",
+        "note": "The figure had not been painted yet. A ring of pale clay arms sat in front of her, almost hiding the face. I waited until the eyes were visible between them, then took the picture. In the darker parts of the room, a few of the hands disappear. I liked that the frame did not reveal everything at once."
+      },
+      {
+        "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 24.JPG",
+        "preview": "/_concept/albums/kumartuli/30",
+        "alt": "A brush adds a fine gold line around the goddess’s eye, with dark lashes against the warm clay.",
+        "width": 5000,
+        "height": 3333,
+        "caption": "Painting the goddess’s eye",
+        "collection": "kumartuli",
+        "note": "I moved close while the painter worked around the eye. The brush looked tiny beside the lines already painted on the clay. I watched for a moment, then took the picture as it touched the edge of the eye. From farther back, I could see the whole figure. Here I wanted to stay with this one careful detail."
+      },
+      {
+        "src": "/gallery/KUMARTULI/KUMARTULI COLOUR - 35.JPG",
+        "preview": "/_concept/albums/kumartuli/41",
+        "alt": "A painted goddess with many arms fills the frame inside the workshop.",
+        "width": 5000,
+        "height": 3333,
+        "caption": "A goddess with raised arms",
+        "collection": "kumartuli",
+        "note": ""
+      }
+    ],
+    "quote": "Every face changed as the paint went on."
   }
 ]

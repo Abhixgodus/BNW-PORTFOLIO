@@ -7,9 +7,9 @@ import {
   postHref,
 } from "../src/data/journal.js";
 
-test("six complete entries have unique, addressable routes and photograph descriptions", () => {
-  assert.equal(journalPosts.length, 6);
-  assert.equal(new Set(journalPosts.map(postHref)).size, 6);
+test("eight complete entries have unique, addressable routes and photograph descriptions", () => {
+  assert.equal(journalPosts.length, 8);
+  assert.equal(new Set(journalPosts.map(postHref)).size, 8);
   for (const post of journalPosts) {
     assert.equal(findPost(post.slug), post);
     assert.match(postHref(post), /^\/concept\/journal\/[a-z0-9-]+$/);
@@ -45,11 +45,19 @@ test("search finds place names, titles and words within the entry, ignoring case
 });
 
 test("subject and search filters intersect and resetting exposes the whole catalog", () => {
-  assert.equal(filterPosts("", "Kolkata").length, 3);
+  assert.equal(filterPosts("", "Kolkata").length, 6);
   assert.equal(filterPosts("Sikkim", "Kolkata").length, 0);
   assert.deepEqual(
-    filterPosts("river", "Walking").map((p) => p.slug),
+    filterPosts("long way home", "Kolkata").map((p) => p.slug),
     ["i-took-the-long-way-home"],
   );
-  assert.equal(filterPosts("  ", "All").length, 6);
+  assert.deepEqual(
+    filterPosts("", "Delhi").map((p) => p.slug),
+    ["a-walk-through-delhi"],
+  );
+  assert.deepEqual(
+    filterPosts("Sikkim", "Travel").map((p) => p.slug),
+    ["a-few-days-in-the-hills"],
+  );
+  assert.equal(filterPosts("  ", "All").length, 8);
 });

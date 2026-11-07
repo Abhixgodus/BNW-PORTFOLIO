@@ -10,25 +10,25 @@ const destination = path.join(publicDir, "_concept/hero");
 await mkdir(destination, { recursive: true });
 const clamp = (value, max) => Math.max(0, Math.min(value, max));
 
-for (const photograph of photographs) {
-  const source = path.join(projectRoot, photograph.src);
-  const metadata = await sharp(source).metadata();
-  const turned = metadata.orientation >= 5;
-  const width = turned ? metadata.height : metadata.width;
-  const height = turned ? metadata.width : metadata.height;
-  for (const [name, aspect, sizes, focus] of [
-    ["desktop", 16 / 10, [1280, 1920, 2560], photograph.focus],
-    ["phone", 9 / 16, [640, 960], photograph.phoneFocus],
-  ]) {
+for (const [device, aspect, sizes, set] of [
+  ["desktop", 16 / 9, [1280, 1920, 2560], photographs.desktop],
+  ["phone", 9 / 16, [640, 960], photographs.phone],
+]) {
+  for (const photograph of set) {
+    const source = path.join(projectRoot, photograph.source);
+    const metadata = await sharp(source).metadata();
+    const turned = metadata.orientation >= 5;
+    const width = turned ? metadata.height : metadata.width;
+    const height = turned ? metadata.width : metadata.height;
     const cropWidth = Math.min(width, Math.round(height * aspect));
     const cropHeight = Math.min(height, Math.round(width / aspect));
     const crop = {
       left: clamp(
-        Math.round(width * focus[0] - cropWidth / 2),
+        Math.round(width * photograph.focus[0] - cropWidth / 2),
         width - cropWidth,
       ),
       top: clamp(
-        Math.round(height * focus[1] - cropHeight / 2),
+        Math.round(height * photograph.focus[1] - cropHeight / 2),
         height - cropHeight,
       ),
       width: cropWidth,
@@ -59,9 +59,11 @@ for (const photograph of photographs) {
       })
         .webp({ quality: 86, effort: 3 })
         .toFile(
-          path.join(destination, `${photograph.slug}-${name}-${size}.webp`),
+          path.join(destination, `${photograph.slug}-${device}-${size}.webp`),
         );
     }
   }
 }
-console.log(`Prepared ${photographs.length} responsive Home hero photographs.`);
+console.log(
+  `Prepared ${photographs.desktop.length} desktop and ${photographs.phone.length} phone Home hero photographs.`,
+);

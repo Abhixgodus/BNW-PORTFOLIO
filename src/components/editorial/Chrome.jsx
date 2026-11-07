@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { editorialLabels, editorialLinks } from "../../data/editorial.js";
+import {
+  editorialLabels,
+  editorialLinks,
+  email,
+} from "../../data/editorial.js";
 import { HomeFooter } from "./HomeJournal.jsx";
 
 export function Header({ page }) {
@@ -138,28 +142,30 @@ export function Header({ page }) {
             setPhase("closed");
         }}
       >
-        {Object.entries(editorialLinks).map(([name, href], index) => (
+        <div className="ed-navigation-links">
+          {Object.entries(editorialLinks).map(([name, href], index) => (
+            <a
+              key={name}
+              href={href}
+              aria-current={page === name ? "page" : undefined}
+              style={{ "--link-order": index }}
+              onClick={followLink}
+            >
+              {editorialLabels[name]}
+            </a>
+          ))}
           <a
-            key={name}
-            href={href}
-            aria-current={page === name ? "page" : undefined}
-            style={{ "--link-order": index }}
-            onClick={followLink}
+            className="ed-navigation-social"
+            href="https://www.instagram.com/abhi.jxl/"
+            style={{ "--link-order": Object.keys(editorialLinks).length }}
+            onClick={closeMenu}
           >
-            {editorialLabels[name]}
+            Instagram
           </a>
-        ))}
-        <a
-          className="ed-navigation-social"
-          href="https://www.instagram.com/abhi.jxl/"
-          style={{ "--link-order": Object.keys(editorialLinks).length }}
-          onClick={closeMenu}
-        >
-          Instagram
-        </a>
+        </div>
       </nav>
       <a
-        href={editorialLinks.home}
+        href={page === "home" ? "#top" : editorialLinks.home}
         className="ed-wordmark"
         aria-label="Abhimanyu Sharma, home"
         onClick={followLink}
@@ -167,12 +173,10 @@ export function Header({ page }) {
         <span className="ed-wordmark-name">Abhimanyu Sharma</span>
         <span className="ed-wordmark-home">Home</span>
       </a>
-      <a
-        className="ed-header-social"
-        href="https://www.instagram.com/abhi.jxl/"
-      >
-        Instagram
-      </a>
+      <nav className="ed-header-links" aria-label="Contact and social">
+        <a href={`mailto:${email}`}>Email</a>
+        <a href="https://www.instagram.com/abhi.jxl/">Instagram</a>
+      </nav>
     </header>
   );
 }

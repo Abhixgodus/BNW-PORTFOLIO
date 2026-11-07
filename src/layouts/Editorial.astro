@@ -10,8 +10,9 @@ import "../styles/home-hero.css";
 import EditorialSite from "../components/editorial/EditorialSite.jsx";
 import heroPhotographs from "../data/home-hero.json";
 const { page = "home", post = null } = Astro.props;
-const firstHero = `/_concept/hero/${heroPhotographs[0].slug}`;
-const labels = { home: "Photography", gallery: "Gallery", about: "About", contact: "Inquire", blog: "The Blog", post: post?.title };
+const firstDesktopHero = `/_concept/hero/${heroPhotographs.desktop[0].slug}`;
+const firstPhoneHero = `/_concept/hero/${heroPhotographs.phone[0].slug}`;
+const labels = { home: "Photography", gallery: "Portfolio", about: "About", contact: "Inquire", blog: "The Journal", post: post?.title };
 const descriptions = {
   home: "Street and landscape photographs by Abhimanyu Sharma, based in Kolkata, India.",
   gallery: "Seven photographic collections and selected colour and monochrome photographs by Abhimanyu Sharma.",
@@ -26,7 +27,16 @@ const descriptions = {
   <head>
     <meta charset="utf-8" />
     <script is:inline>
-      document.documentElement.classList.add("ed-js");
+      const editorialRoot = document.documentElement;
+      editorialRoot.classList.add("ed-js");
+      if (editorialRoot.dataset.editorialPage === "home") {
+        // The image zoom alternates every 40 seconds; keep its phase stable on reload.
+        const zoomCycle = 80000;
+        editorialRoot.style.setProperty(
+          "--hero-photo-zoom-delay",
+          `${-(Date.now() % zoomCycle)}ms`,
+        );
+      }
       window.setTimeout(() => {
         const site = document.querySelector(".ed-site");
         if (site && !site.classList.contains("is-ready"))
@@ -48,8 +58,8 @@ const descriptions = {
     {page === "home" && <link rel="preload" as="font" href="/fonts/la-luxes-serif.woff" type="font/woff" crossorigin />}
     {page === "home" && <link rel="preload" as="font" href="/fonts/la-luxes-script.woff" type="font/woff" crossorigin />}
     <link rel="preload" as="font" href="/fonts/cormorant-unicase-regular-latin.woff2" type="font/woff2" crossorigin />
-    {page === "home" && <link rel="preload" as="image" href={`${firstHero}-desktop-1920.webp`} imagesrcset={`${firstHero}-desktop-1280.webp 1280w, ${firstHero}-desktop-1920.webp 1920w, ${firstHero}-desktop-2560.webp 2560w`} imagesizes="100vw" media="(min-width:761px), (orientation:landscape)" fetchpriority="high" />}
-    {page === "home" && <link rel="preload" as="image" href={`${firstHero}-phone-960.webp`} imagesrcset={`${firstHero}-phone-640.webp 640w, ${firstHero}-phone-960.webp 960w`} imagesizes="100vw" media="(max-width:760px) and (orientation:portrait)" fetchpriority="high" />}
+    {page === "home" && <link rel="preload" as="image" href={`${firstDesktopHero}-desktop-1920.webp`} imagesrcset={`${firstDesktopHero}-desktop-1280.webp 1280w, ${firstDesktopHero}-desktop-1920.webp 1920w, ${firstDesktopHero}-desktop-2560.webp 2560w`} imagesizes="100vw" media="(min-width:761px), (orientation:landscape)" fetchpriority="high" />}
+    {page === "home" && <link rel="preload" as="image" href={`${firstPhoneHero}-phone-960.webp`} imagesrcset={`${firstPhoneHero}-phone-640.webp 640w, ${firstPhoneHero}-phone-960.webp 960w`} imagesizes="100vw" media="(max-width:760px) and (orientation:portrait)" fetchpriority="high" />}
   </head>
   <body>
     <EditorialSite page={page} post={post} client:load />

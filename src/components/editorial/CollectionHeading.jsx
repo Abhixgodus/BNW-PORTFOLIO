@@ -243,7 +243,7 @@ export default function CollectionHeading({
         className="ed-album-return-heading"
         aria-hidden="true"
       >
-        <span ref={galleryTitle}>Gallery</span>
+        <span ref={galleryTitle}>Portfolio</span>
       </div>
     </>
   );

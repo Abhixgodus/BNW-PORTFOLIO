@@ -312,7 +312,8 @@ export function useEditorialNavigation(
       current.current = target;
       flushSync(() => setRoutePage(target));
       document.title =
-        (target === "home" ? "Photography" : "Gallery") + " — Abhimanyu Sharma";
+        (target === "home" ? "Photography" : "Portfolio") +
+        " — Abhimanyu Sharma";
       return defer ? {} : renderPage(target, state, resume);
     };
     const completeWhenReady = (scene, focus) => {

@@ -30,6 +30,7 @@ export function Icon({ name = "arrow-up-right", size = 20 }) {
 
 export function Photograph({
   photo,
+  mobilePhoto,
   className = "",
   eager = false,
   priority = false,
@@ -40,6 +41,7 @@ export function Photograph({
   large = false,
 }) {
   const [failedSource, setFailedSource] = useState(null);
+  const [failedMobileSource, setFailedMobileSource] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
   const imageRef = useRef(null);
   const name = photo.src.startsWith("/images/portfolio/")
@@ -59,6 +61,19 @@ export function Photograph({
           : null;
   const optimized = base && failedSource !== photo.src;
   const intermediate = photo.preview?.startsWith("/_concept/features/");
+  const onImageError = () => {
+    if (
+      mobilePhoto &&
+      !failedMobileSource &&
+      imageRef.current?.currentSrc.includes(mobilePhoto.preview)
+    ) {
+      setFailedMobileSource(true);
+    } else if (optimized) {
+      setFailedSource(photo.src);
+    } else {
+      setUnavailable(true);
+    }
+  };
   useEffect(() => {
     // A server-rendered image may fail before React attaches its error handler.
     // Recover that initial failure too, without restarting successful requests.
@@ -78,7 +93,7 @@ export function Photograph({
         Photograph unavailable
       </div>
     );
-  return (
+  const image = (
     <img
       ref={imageRef}
       className={className}
@@ -102,10 +117,26 @@ export function Photograph({
       width={photo.width || 1200}
       height={photo.height || 800}
       data-entry-photo={entrance ? "" : undefined}
-      onError={() =>
-        optimized ? setFailedSource(photo.src) : setUnavailable(true)
-      }
+      onError={onImageError}
     />
+  );
+  if (!mobilePhoto) return image;
+  return (
+    <picture>
+      {!failedMobileSource && (
+        <source
+          media="(max-width: 760px)"
+          srcSet={
+            `${mobilePhoto.preview}-320.webp 320w, ` +
+            `${mobilePhoto.preview}-640.webp 640w, ` +
+            `${mobilePhoto.preview}-1280.webp 1280w, ` +
+            `${mobilePhoto.preview}-1920.webp 1920w`
+          }
+          sizes={sizes || "100vw"}
+        />
+      )}
+      {image}
+    </picture>
   );
 }
 

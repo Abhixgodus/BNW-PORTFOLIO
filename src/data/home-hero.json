@@ -1,51 +1,48 @@
-[
-  {
-    "slug": "tomb-companion",
-    "src": "/gallery/DELHI/HUMAYUN'S TOMB COLOUR-10.JPG",
-    "alt": "A dog sleeps in the grass in front of Humayun’s Tomb.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.4, 0.5]
-  },
-  {
-    "slug": "mother-and-child",
-    "src": "/gallery/MULLICK MARKET/MULLICKMARKET COLOUR-12.JPG",
-    "alt": "A mother carries her child beside a bus on a Kolkata market street.",
-    "focus": [0.55, 0.65],
-    "phoneFocus": [0.65, 0.5]
-  },
-  {
-    "slug": "market-vendor",
-    "src": "/gallery/ESPLANADE/ESPLANADE COLOUR-10.JPG",
-    "alt": "A vendor looks out from a clothing stall under hanging bulbs in Esplanade.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.32, 0.5]
-  },
-  {
-    "slug": "river-evening",
-    "src": "/gallery/PRINCEP GHAT/PRINCEPGHAT COLOUR - 33.JPG",
-    "alt": "Two silhouettes stand by the river beneath Vidyasagar Setu at sunset.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.48, 0.5]
-  },
-  {
-    "slug": "mountain-dog",
-    "src": "/gallery/SIKKIM/SIKKIM COLOUR-16.JPG",
-    "alt": "A brown dog looks toward the camera on a grassy mountain slope.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.6, 0.5]
-  },
-  {
-    "slug": "doorway-cat",
-    "src": "/gallery/SIKKIM/SIKKIM COLOUR-35.JPG",
-    "alt": "A cat peers out of a dark wooden doorway, its amber eyes looking upward.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.4, 0.5]
-  },
-  {
-    "slug": "qutub-at-dusk",
-    "src": "/gallery/DELHI/QUTUBMINAR COLOUR-6.JPG",
-    "alt": "Two visitors look up toward Qutub Minar against the blue evening sky.",
-    "focus": [0.5, 0.5],
-    "phoneFocus": [0.53, 0.5]
-  }
-]
+{
+  "desktop": [
+    {
+      "slug": "qutub-visitors",
+      "source": "assets/home-hero-source/QM-22_2.JPG",
+      "alt": "Two visitors stand beneath the illuminated Qutub Minar at night.",
+      "focus": [0.5, 0.4]
+    },
+    {
+      "slug": "rainy-street",
+      "source": "assets/home-hero-source/IMG_7170.jpg",
+      "alt": "People and street shops seen through a rain-speckled window.",
+      "focus": [0.5, 0.5]
+    },
+    {
+      "slug": "mountain-spires",
+      "source": "assets/home-hero-source/A6700-64.jpg",
+      "alt": "A mist-shrouded mountain peak rises above dark conifer trees.",
+      "focus": [0.5, 0.4]
+    }
+  ],
+  "phone": [
+    {
+      "slug": "qutub-minar-mobile",
+      "source": "assets/home-hero-source/QM-22-mobile.jpg",
+      "alt": "The illuminated Qutub Minar rises against a deep blue night sky.",
+      "focus": [0.5, 0.5]
+    },
+    {
+      "slug": "mountain-mist-mobile",
+      "source": "assets/home-hero-source/A6700-64-mobile.JPG",
+      "alt": "A sharp mountain peak emerges from mist above a dark forest.",
+      "focus": [0.5, 0.5]
+    },
+    {
+      "slug": "forest-waterfall-mobile",
+      "source": "assets/home-hero-source/A6700-53-mobile.jpg",
+      "alt": "A waterfall descends through dense green forest.",
+      "focus": [0.5, 0.5]
+    },
+    {
+      "slug": "street-worker-mobile",
+      "source": "assets/home-hero-source/D850-732-mobile.JPG",
+      "alt": "A man in a red shirt focuses on his work beside a red cart.",
+      "focus": [0.46, 0.5]
+    }
+  ]
+}

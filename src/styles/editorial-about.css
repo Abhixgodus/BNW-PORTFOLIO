@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-light-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-italic-latin.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
 .ed-about {
   --about-width: 1200px;
   --about-gutter: clamp(24px, 4vw, 72px);
@@ -8,6 +22,171 @@
 .ed-about .ed-about-shell {
   width: min(var(--about-width), calc(100% - var(--about-gutter) * 2));
   margin-inline: auto;
+}
+/* The page owns the pin; the foreground can cover the full hero before it releases. */
+.ed-about .ed-about-hero-stage {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100svh;
+}
+.ed-about .ed-about-hero {
+  --about-hero-name-size: min(7.5vw, 14svh);
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050505;
+  color: var(--paper);
+  text-align: center;
+}
+.ed-about .ed-about-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+.ed-about .ed-about-hero-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ed-about .ed-about-hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 43%;
+  transform-origin: 50% 50%;
+  transition: none;
+}
+@media (min-width: 761px) {
+  .ed-about .ed-about-hero {
+    --about-hero-portrait-height: 96svh;
+    background: #000;
+  }
+  /* Keep the supplied headroom, then let the portrait extend behind the name.
+     Its top stays visible while the existing scroll owner only zooms it. */
+  .ed-about .ed-about-hero-image picture {
+    position: absolute;
+    top: 2svh;
+    left: 50%;
+    width: calc(var(--about-hero-portrait-height) * 1.5);
+    height: var(--about-hero-portrait-height);
+    overflow: hidden;
+    transform: translateX(-50%);
+  }
+  .ed-about .ed-about-hero-image img {
+    height: 109.55svh;
+    margin-top: -5.32svh;
+    object-position: 50% 0;
+    transform-origin: 50% 0;
+  }
+}
+/* Match the opening About scroll frame before JavaScript attaches its timeline. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 761px) {
+  .ed-about .ed-about-hero-image img {
+    transform: scale(1.028278);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .ed-about .ed-about-hero-image img {
+    transform: scale(1.013942);
+  }
+}
+.ed-about .ed-about-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(0 0 0 / 25%);
+  pointer-events: none;
+}
+.ed-about .ed-about-hero-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 0;
+  transform: none;
+  pointer-events: none;
+  -webkit-user-select: text;
+  user-select: text;
+}
+.ed-about .ed-about-hero-copy > :is(h1, p) {
+  pointer-events: auto;
+}
+.ed-about .ed-about-hero h1 {
+  position: absolute;
+  top: calc(
+    44.5svh + var(--about-hero-name-size) * 0.766 + clamp(10px, 1.2svh, 14px)
+  );
+  left: 50.1%;
+  width: calc(100% - var(--about-gutter) * 2);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: var(--about-hero-name-size);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ed-about .ed-about-hero h1 span {
+  display: block;
+}
+.ed-about .ed-about-hero h1 .ed-about-hero-mobile-title {
+  display: none;
+}
+/* The reference has separate tracking on each name line. Offset the trailing
+   letter space so the visible lettering stays centered. */
+.ed-about .ed-about-hero-desktop-name > span {
+  text-indent: 0.28em;
+}
+.ed-about .ed-about-hero-desktop-name > span:last-child {
+  letter-spacing: 0.282em;
+  text-indent: 0.282em;
+}
+.ed-about .ed-about-hero-tagline,
+.ed-about .ed-about-hero-subtitle {
+  position: absolute;
+  left: 50%;
+  width: calc(100% - var(--about-gutter) * 2);
+  margin: 0;
+  transform: translateX(-50%);
+}
+.ed-about .ed-about-hero-tagline {
+  top: 84.3%;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: min(1.76vw, 3.3svh);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: none;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 82%);
+}
+.ed-about .ed-about-hero-subtitle {
+  top: 88.2%;
+  font-family: "Pinyon Script", cursive;
+  font-size: min(1.58vw, 3svh);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 86%);
+}
+.ed-about .ed-about-hero-mobile-subtitle {
+  display: none;
+}
+.ed-about .ed-about-content {
+  position: relative;
+  z-index: 1;
+  display: flow-root;
+  background: var(--black);
 }
 .ed-about-page :is(h1, h2, h3) {
   font-family: var(--editorial-serif);
@@ -32,11 +211,24 @@
 }
 .ed-about .ed-about-intro {
   --about-width: 1260px;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(40px, 5vw, 80px);
   padding-block: calc(var(--header-height) + 40px) var(--about-space);
+}
+.ed-about .ed-about-intro::before {
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--black);
+  content: "";
 }
 .ed-about .ed-about-portrait {
   position: relative;
@@ -82,7 +274,22 @@
   height: 1.233em;
   margin-bottom: 3px;
 }
-.ed-about .ed-about-intro h1 {
+@media (min-width: 761px) {
+  .ed-about .ed-about-greeting {
+    font-size: 14px;
+    margin-bottom: -14px;
+    margin-left: clamp(-42px, -2.865vw, -22px);
+  }
+  .ed-about .ed-about-signature .ed-signature-artwork {
+    font-size: 28px;
+    width: min(100%, 504.73px);
+    height: auto;
+    aspect-ratio: 504.73 / 70.53;
+    margin-bottom: -12px;
+    margin-left: -10px;
+  }
+}
+.ed-about .ed-about-intro h2 {
   font-size: clamp(27px, 2.5622vw, 37px);
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -100,6 +307,31 @@
   align-items: start;
   gap: clamp(48px, 8vw, 112px);
   margin-block: clamp(40px, 4.2433vw, 64px) clamp(72px, 8.1329vw, 120px);
+}
+@media (min-width: 1001px) and (min-height: 680px) and (prefers-reduced-motion: no-preference) {
+  .ed-about .ed-about-page {
+    position: relative;
+    isolation: isolate;
+  }
+  .ed-about .ed-about-intro {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    isolation: isolate;
+    height: 100svh;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+    padding-block: 24px;
+  }
+  .ed-about .ed-about-portrait {
+    height: calc(100% + 48px);
+    min-height: 0;
+    margin-block: -24px;
+  }
+  .ed-about .ed-about-portrait img {
+    height: 100%;
+    object-fit: contain;
+  }
 }
 .ed-about .ed-about-story h2 {
   font-size: clamp(58px, 6.65vw, 96px);
@@ -413,7 +645,12 @@
 }
 html.ed-js:not(.ed-entry-timeout)
   .ed-about:not(.has-entered)
-  [data-about-enter] {
+  :is(
+    [data-about-enter],
+    [data-about-hero-image],
+    [data-about-hero-line],
+    [data-about-hero-caption]
+  ) {
   opacity: 0;
 }
 .ed-about.has-editorial-motion [data-ed-reveal] {
@@ -452,40 +689,6 @@ html.ed-js:not(.ed-entry-timeout)
     --question-width: min(46vw, 450px);
   }
 }
-@media (min-width: 1100px) {
-  .ed-about .ed-about-intro {
-    padding-top: 33px;
-  }
-}
-@media (min-width: 1001px) and (min-height: 680px) and (prefers-reduced-motion: no-preference) {
-  .ed-about .ed-about-page {
-    padding-top: var(--header-height);
-    isolation: isolate;
-  }
-  .ed-about .ed-about-intro {
-    position: sticky;
-    top: var(--header-height);
-    z-index: 0;
-    height: calc(100svh - var(--header-height));
-    grid-template-rows: minmax(0, 1fr);
-    padding-block: 24px;
-  }
-  .ed-about .ed-about-portrait {
-    height: calc(100% + 48px);
-    min-height: 0;
-    margin-block: -24px;
-  }
-  .ed-about .ed-about-portrait img {
-    height: 100%;
-    object-fit: contain;
-  }
-  .ed-about .ed-about-content {
-    position: relative;
-    z-index: 1;
-    display: flow-root;
-    background: var(--black);
-  }
-}
 @media (min-width: 761px) {
   .ed-about .ed-about-next {
     margin-bottom: 0;
@@ -502,16 +705,86 @@ html.ed-js:not(.ed-entry-timeout)
     padding-top: calc(var(--header-height) + 24px);
     gap: 42px;
   }
+  .ed-about .ed-about-hero-shade {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(0 0 0 / 0.42),
+        rgb(0 0 0 / 0.14) 33%,
+        rgb(0 0 0 / 0.46)
+      ),
+      radial-gradient(ellipse at 50% 54%, rgb(0 0 0 / 0.34), transparent 67%),
+      rgb(0 0 0 / 0.16);
+  }
+  .ed-about .ed-about-hero-copy {
+    position: relative;
+    inset: auto;
+    width: min(100%, 1360px);
+    margin-top: 94px;
+    padding: 5px var(--about-gutter) 0;
+    transform: translateY(5svh);
+    pointer-events: auto;
+  }
+  .ed-about .ed-about-hero h1 {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    margin: 0;
+    transform: none;
+    font-family: var(--editorial-serif);
+    font-size: clamp(40px, 11vw, 54px);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    white-space: normal;
+  }
+  .ed-about .ed-about-hero h1 .ed-about-hero-mobile-title {
+    display: block;
+  }
+  .ed-about .ed-about-hero h1 .ed-about-hero-mobile-title > span:first-child {
+    font-size: clamp(40px, calc(11vw + 6px), 54px);
+  }
+  .ed-about .ed-about-hero h1 .ed-about-hero-mobile-title > span:last-child {
+    margin: -2px 0 8px;
+    padding-bottom: 22px;
+    font-size: clamp(40px, calc(11vw + 4px), 52px);
+  }
+  .ed-about .ed-about-hero h1 .ed-about-hero-desktop-name,
+  .ed-about .ed-about-hero-tagline,
+  .ed-about .ed-about-hero-subtitle {
+    display: none;
+  }
+  .ed-about .ed-about-hero-mobile-subtitle {
+    display: block;
+    position: static;
+    width: auto;
+    max-width: 24ch;
+    margin: 22px auto 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(26px, 6.5vw, 30px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.15;
+    white-space: normal;
+    color: var(--paper);
+  }
+  .ed-about .ed-about-hero-image img {
+    object-position: 50% 50%;
+  }
   .ed-about .ed-about-portrait {
     width: calc(100% + var(--about-gutter) * 2);
     max-width: none;
     margin-inline: calc(var(--about-gutter) * -1);
   }
+  .ed-about .ed-about-portrait img {
+    margin-top: -35px;
+  }
   .ed-about .ed-about-intro-copy {
     max-width: 540px;
     margin-inline: auto;
   }
-  .ed-about .ed-about-intro h1 {
+  .ed-about .ed-about-intro h2 {
     font-size: clamp(26px, 5vw, 34px);
     margin-top: -16px;
     margin-bottom: 19px;
@@ -628,6 +901,11 @@ html.ed-js:not(.ed-entry-timeout)
     padding-bottom: 40px;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .ed-about .ed-about-hero-image img {
+    transform: none;
+  }
+}
 @media (max-width: 600px) {
   .ed-about .ed-about-intro-copy {
     text-align: center;
@@ -684,7 +962,24 @@ html.ed-js:not(.ed-entry-timeout)
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  html.ed-js .ed-about [data-about-enter],
+  .ed-about .ed-about-hero-stage {
+    position: relative;
+    height: 100svh;
+  }
+  .ed-about .ed-about-hero {
+    position: relative;
+  }
+  .ed-about .ed-about-content {
+    margin-top: 0;
+  }
+  html.ed-js
+    .ed-about
+    :is(
+      [data-about-enter],
+      [data-about-hero-image],
+      [data-about-hero-line],
+      [data-about-hero-caption]
+    ),
   .ed-about.has-editorial-motion [data-ed-reveal] {
     opacity: 1;
     transform: none;

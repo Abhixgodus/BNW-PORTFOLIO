@@ -30,7 +30,20 @@ const folios = [
 const { collections } = JSON.parse(
   await readFile("gallery-collections.json", "utf8"),
 );
+const homeHero = JSON.parse(
+  await readFile(path.join(projectRoot, "src/data/home-hero.json"), "utf8"),
+);
 const files = [
+  ...homeHero.desktop.flatMap(({ slug }) =>
+    [1280, 1920, 2560].map((width) =>
+      path.join(outDir, "_concept/hero", `${slug}-desktop-${width}.webp`),
+    ),
+  ),
+  ...homeHero.phone.flatMap(({ slug }) =>
+    [640, 960].map((width) =>
+      path.join(outDir, "_concept/hero", `${slug}-phone-${width}.webp`),
+    ),
+  ),
   ...[640, 1280].map((width) =>
     path.join(outDir, "_concept/features", "kolkata-menu-" + width + ".webp"),
   ),
@@ -43,6 +56,8 @@ const files = [
     "esplanade",
     "abhimanyu-sharma",
     "abhimanyu-about-portrait",
+    "abhimanyu-about-hero-desktop",
+    "abhimanyu-about-hero-mobile",
     "abhimanyu-journal-portrait",
     "abhimanyu-home-camera",
   ].flatMap((name) =>
@@ -87,9 +102,9 @@ const rootHtml = await readFile(path.join(outDir, "index.html"), "utf8");
 if (
   !rootHtml.includes('data-editorial-page="home"') ||
   !rootHtml.includes('id="ed-hero-title"') ||
-  !rootHtml.includes("Moments from ordinary lives") ||
-  rootHtml.includes("ed-story-marquee") ||
-  rootHtml.includes("ed-story-kicker") ||
+  !rootHtml.includes('aria-label="Moments from ordinary lives"') ||
+  rootHtml.includes('class="ed-story-kicker"') ||
+  rootHtml.includes('class="ed-story-marquee"') ||
   rootHtml.includes('class="ed-loading"')
 ) {
   throw new Error("The default homepage must be the current editorial concept");

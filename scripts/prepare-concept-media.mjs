@@ -76,9 +76,18 @@ const jobs = [
     ["gallery/ESPLANADE/ESPLANADE BNW-5.JPG", "esplanade"],
     ["gallery/DELHI/QUTUBMINAR BNW-1.JPG", "qutub-minar"],
     ["images/editorial/abhimanyu-sharma-about.jpg", "abhimanyu-sharma"],
+    ["images/editorial/blog-opening-sunset.jpg", "blog-opening-sunset"],
     [
       "images/editorial/abhimanyu-about-portrait.jpg",
       "abhimanyu-about-portrait",
+    ],
+    [
+      "images/editorial/abhimanyu-about-hero-headroom.jpg",
+      "abhimanyu-about-hero-desktop",
+    ],
+    [
+      "images/editorial/abhimanyu-about-hero-mobile.jpg",
+      "abhimanyu-about-hero-mobile",
     ],
     [
       "images/editorial/abhimanyu-journal-portrait.jpg",

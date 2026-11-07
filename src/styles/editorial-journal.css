@@ -58,6 +58,9 @@
 .ed-blog-opening {
   padding-top: calc(var(--header-height) + clamp(60px, 6vw, 95px));
 }
+.ed-blog-opening-backdrop {
+  display: none;
+}
 .ed-blog-heading {
   text-align: center;
   margin-bottom: 65px;
@@ -81,8 +84,69 @@
   margin-inline: auto;
 }
 @media (min-width: 761px) {
+  .ed-blog-page {
+    --blog-opening-backdrop-height: clamp(560px, 75svh, 680px);
+    position: relative;
+    isolation: isolate;
+  }
+  .ed-blog-page > :not(.ed-blog-opening-backdrop) {
+    position: relative;
+    z-index: 1;
+  }
+  .ed-blog-opening {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+  }
+  .ed-blog-opening-backdrop {
+    display: block;
+    position: sticky;
+    z-index: 0;
+    top: 0;
+    width: 100vw;
+    height: var(--blog-opening-backdrop-height);
+    margin-left: calc((100% - 100vw) / 2);
+    margin-bottom: calc(0px - var(--blog-opening-backdrop-height));
+    pointer-events: none;
+  }
+  .ed-blog-opening-backdrop::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(
+      180deg,
+      rgb(0 0 0 / 0.76) 0%,
+      rgb(0 0 0 / 0.85) 54%,
+      #000 100%
+    );
+  }
+  .ed-blog-opening-backdrop img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(1);
+    animation: ed-blog-opening-photo-zoom 40s linear infinite alternate;
+  }
+  .ed-blog-heading,
+  .ed-blog-leads {
+    position: relative;
+    z-index: 1;
+  }
+  .ed-blog-heading .ed-blog-script {
+    margin-top: 2px;
+  }
   .ed-blog-leads .ed-blog-story-photo {
     aspect-ratio: 4 / 3;
+  }
+}
+@keyframes ed-blog-opening-photo-zoom {
+  from {
+    transform: scale(1.01);
+  }
+  to {
+    transform: scale(1.065);
   }
 }
 .ed-blog-story {
@@ -262,6 +326,11 @@
   object-fit: cover;
   object-position: center 38%;
 }
+@media (min-width: 761px) {
+  .ed-blog-feature-photo {
+    aspect-ratio: 1.5906;
+  }
+}
 .ed-blog-feature-copy {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -399,6 +468,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.ed-post-hero[data-post-slug="idols-taking-shape-in-kumartuli"]
+  .ed-post-hero-image
+  > img {
+  object-position: center top;
 }
 .ed-post-hero::after {
   content: "";
@@ -599,6 +673,14 @@
   text-transform: uppercase;
 }
 @media (min-width: 901px) {
+  .ed-post-intro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px clamp(36px, 4.4vw, 72px);
+  }
+  .ed-post-intro p + p {
+    margin-top: 0;
+  }
   .ed-post-passage > .ed-post-prose.is-paired {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -623,6 +705,11 @@
 :is(.ed-blog, .ed-post).has-editorial-motion [data-ed-reveal].is-revealed {
   opacity: 1;
 }
+@media (min-width: 761px) {
+  .ed-blog.has-editorial-motion .ed-blog-grid > .ed-blog-story[data-ed-reveal] {
+    transition-delay: var(--blog-reveal-delay, 0ms);
+  }
+}
 html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
   opacity: 1;
 }
@@ -645,7 +732,8 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
 }
 @media (min-width: 761px) {
   .ed-blog-result-count {
-    font-size: 14px;
+    margin-top: 10px !important;
+    font-size: 16px;
   }
   .ed-blog-subjects-script {
     margin-bottom: 18px;
@@ -708,7 +796,10 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     margin-bottom: 43px;
   }
   .ed-blog-heading h1 {
-    font-size: clamp(48px, 12.5vw, 80px);
+    position: relative;
+    top: -1px;
+    margin-top: -20px;
+    font-size: clamp(55px, 17.3vw, 76px);
   }
   .ed-blog-heading .ed-blog-script {
     font-size: 25px;
@@ -719,7 +810,7 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     gap: 55px;
   }
   .ed-blog-story h2 {
-    font-size: 34px;
+    font-size: 40px;
   }
   .ed-blog-story-copy {
     padding-top: 20px;
@@ -734,14 +825,15 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     min-height: calc(100svh - var(--header-height));
     display: flex;
     align-items: center;
-    padding-block: 72px;
+    margin-top: -50px;
+    padding-block: 30px;
   }
   .ed-blog-find-inner {
     grid-template-columns: 1fr;
     gap: 40px;
   }
   .ed-blog-find h2 {
-    font-size: 37px;
+    font-size: clamp(37px, 9.55vw, 38px);
   }
   .ed-blog-find .ed-blog-copy {
     font-size: 14px;
@@ -760,6 +852,9 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
   .ed-blog-grid {
     grid-template-columns: 1fr;
     gap: 72px;
+  }
+  .ed-blog-latest {
+    padding-block: 5px;
   }
   .ed-blog-feature-photo {
     aspect-ratio: 4/5;
@@ -781,7 +876,8 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     min-height: calc(100svh - var(--header-height));
     display: grid;
     align-content: center;
-    padding-block: 64px;
+    margin-top: 70px;
+    padding-block: 70px;
   }
   .ed-blog-subjects > div {
     gap: 18px;
@@ -798,7 +894,7 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     margin-top: 15px;
   }
   .ed-site .ed-blog-author {
-    margin-block: 160px 0;
+    margin-block: 115px 0;
     grid-template-columns: 1fr;
     text-align: center;
     gap: 32px;
@@ -813,13 +909,18 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     margin: auto;
   }
   .ed-site .ed-blog-author h2 {
-    font-size: clamp(70px, 17vw, 100px);
+    font-size: clamp(48px, 14.8vw, 68px);
     margin-bottom: 0;
     grid-row: 1;
+    white-space: nowrap;
+  }
+  .ed-site .ed-blog-author h2 br {
+    display: none;
   }
   .ed-site .ed-blog-author .ed-blog-copy {
     grid-row: 2;
     font-size: 14px;
+    margin-top: -15px;
     margin-inline: auto;
     max-width: 38ch;
   }
@@ -827,7 +928,11 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
     grid-row: 4;
     max-width: 18ch;
     margin-inline: auto;
-    font-size: clamp(36px, 9.2vw, 48px);
+    font-size: clamp(36px, 9.95vw, 48px);
+  }
+  .ed-blog.has-editorial-motion .ed-blog-grid > .ed-blog-story[data-ed-reveal] {
+    opacity: 1;
+    transition: none;
   }
   .ed-site .ed-blog-author .ed-blog-about-button {
     grid-row: 5;
@@ -845,6 +950,9 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
   .ed-post-heading h1 {
     font-size: clamp(40px, 10.4vw, 74px);
     line-height: 1;
+  }
+  .ed-post-intro > p:first-child {
+    margin-top: -29px;
   }
   .ed-post-prose p {
     font-size: 15px;
@@ -873,6 +981,9 @@ html.ed-entry-timeout :is(.ed-blog, .ed-post) [data-journal-enter] {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ed-blog-opening-backdrop img {
+    animation: none;
+  }
   .ed-blog-subject-photo img {
     transition: none;
   }

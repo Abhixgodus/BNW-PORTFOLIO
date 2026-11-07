@@ -76,7 +76,7 @@ export function useEditorialMotion(page) {
     root.classList.add("has-editorial-motion");
     if (!quietPage) observe();
     const photograph = root.querySelector(
-      ".ed-story-photo img, .ed-about-portrait img, .ed-contact-photo img, .ed-blog-leads img, .ed-post-hero img",
+      ".ed-story-photo img, .ed-about-hero-image img, .ed-about-portrait img, .ed-contact-photo img, .ed-blog-leads img, .ed-post-hero img",
     );
     if (reduced.matches) finish(true);
     else {

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortfolioScrollMotion } from "../../runtime/helpers.js";
+import { PHOTO_MOTION_PRESETS, photoMotionTransform } from "./photoMotion.js";
 
 // Isabella's BackgroundImageFXParallax pans the image while interpolating its
 // zoom. Keep that composition on an ordinary image layer, without its WebGL
@@ -19,6 +20,9 @@ export function useLargePhotoMotion(rootRef, page) {
     if (!scenes.length || !Element.prototype.animate) return;
 
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
+    const homeHasCssScroll =
+      CSS.supports("animation-timeline", "scroll(root block)") &&
+      CSS.supports("animation-range", "0px 100svh");
     const viewport = document.createElement("div");
     viewport.setAttribute("aria-hidden", "true");
     viewport.style.cssText =
@@ -62,6 +66,12 @@ export function useLargePhotoMotion(rootRef, page) {
       // desktop and quarter strength on phones.
       const strength = innerWidth <= 760 ? 0.25 : 0.5;
       const effects = scenes.flatMap((scene) => {
+        const home = scene.dataset.edPhotoMotion === "home";
+        const pinnedAboutHero =
+          scene.dataset.edPhotoMotion === "about" &&
+          scene.parentElement?.classList.contains("ed-about-hero-stage");
+        // Home's server-rendered CSS timeline already owns this scroll crop.
+        if (home && homeHasCssScroll) return [];
         if (scene.hasAttribute("data-ed-photo-mobile") && innerWidth > 760)
           return [];
         const layer = scene.querySelector("[data-ed-photo-layer]");
@@ -71,25 +81,37 @@ export function useLargePhotoMotion(rootRef, page) {
           ? layer
           : layer?.querySelector("img");
         if (!image || !layer.clientWidth || !layer.clientHeight) return [];
-        const preset = ISABELLA[scene.dataset.edPhotoMotion] || ISABELLA.about;
+        const preset =
+          PHOTO_MOTION_PRESETS[scene.dataset.edPhotoMotion] || ISABELLA.about;
         const amount = preset.intensity * 0.005 * strength;
         const angle = (preset.rotation * Math.PI) / 180;
         const width = layer.clientWidth,
           height = layer.clientHeight;
         const rect = scene.getBoundingClientRect();
-        const home = scene.dataset.edPhotoMotion === "home";
-        // Sticky positioning changes the hero's viewport rect while scrolling.
-        // Its normal-flow parent keeps the scroll range stable on remeasure.
+        // The About page stays in normal flow while its hero stage is pinned.
+        // Use that anchor so resizing during a scroll cannot reset the zoom.
         const top =
-          (home ? scene.parentElement.getBoundingClientRect().top : rect.top) +
-          scrollY;
+          (pinnedAboutHero
+            ? scene.closest(".ed-about-page").getBoundingClientRect().top
+            : home
+              ? scene.parentElement.getBoundingClientRect().top
+              : rect.top) + scrollY;
         const start = Math.max(0, top - viewportHeight);
         const end = Math.max(
           start + 1,
-          top + rect.height - (home ? 0 : header),
+          top +
+            (pinnedAboutHero
+              ? viewportHeight
+              : rect.height - (home ? 0 : header)),
         );
-        const keyframes = Array.from({ length: 9 }, (_, index) => {
-          const progress = index / 8;
+        const frameCount = home ? 2 : 9;
+        const keyframes = Array.from({ length: frameCount }, (_, index) => {
+          const progress = index / (frameCount - 1);
+          if (home)
+            return {
+              transform: photoMotionTransform(preset, strength, progress),
+              offset: progress,
+            };
           const zoom =
             (preset.zoomStart +
               (preset.zoomEnd - preset.zoomStart) * progress) *
@@ -100,7 +122,9 @@ export function useLargePhotoMotion(rootRef, page) {
           const y =
             -Math.sin(angle) * amount * (progress - 0.5) * height * scale;
           return {
-            transform: `translate3d(${x.toFixed(3)}px,${y.toFixed(3)}px,0) scale(${scale.toFixed(6)})`,
+            transform: pinnedAboutHero
+              ? `scale(${scale.toFixed(6)})`
+              : `translate3d(${x.toFixed(3)}px,${y.toFixed(3)}px,0) scale(${scale.toFixed(6)})`,
             offset: progress,
           };
         });

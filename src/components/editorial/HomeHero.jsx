@@ -1,25 +1,55 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import photographs from "../../data/home-hero.json";
+import { PHOTO_MOTION_PRESETS, photoMotionTransform } from "./photoMotion.js";
 
 const HOLD_MS = 10000;
 const FADE_MS = 3000;
+const photoStart = {
+  "--hero-photo-start": photoMotionTransform(PHOTO_MOTION_PRESETS.home, 0.5, 0),
+  "--hero-photo-end": photoMotionTransform(PHOTO_MOTION_PRESETS.home, 0.5, 1),
+  "--hero-photo-phone-start": photoMotionTransform(
+    PHOTO_MOTION_PRESETS.home,
+    0.25,
+    0,
+  ),
+  "--hero-photo-phone-end": photoMotionTransform(
+    PHOTO_MOTION_PRESETS.home,
+    0.25,
+    1,
+  ),
+};
+
 function HeroPhotograph({ index, priority }) {
-  const photograph = photographs[index];
-  const base = `/_concept/hero/${photograph.slug}`;
+  const desktopPhotograph = photographs.desktop[index.desktop];
+  const phonePhotograph = photographs.phone[index.phone];
+  const desktopBase = `/_concept/hero/${desktopPhotograph.slug}`;
+  const phoneBase = `/_concept/hero/${phonePhotograph.slug}`;
+  const pictureClass =
+    desktopPhotograph.slug === "mountain-spires"
+      ? "ed-story-picture-top-space"
+      : undefined;
   return (
-    <picture key={photograph.slug}>
+    <picture
+      key={`${desktopPhotograph.slug}-${phonePhotograph.slug}`}
+      className={pictureClass}
+    >
       <source
         media="(max-width: 760px) and (orientation: portrait)"
-        srcSet={`${base}-phone-640.webp 640w, ${base}-phone-960.webp 960w`}
+        srcSet={`${phoneBase}-phone-640.webp 640w, ${phoneBase}-phone-960.webp 960w`}
         sizes="100vw"
       />
       <img
-        src={`${base}-desktop-1920.webp`}
-        srcSet={`${base}-desktop-1280.webp 1280w, ${base}-desktop-1920.webp 1920w, ${base}-desktop-2560.webp 2560w`}
+        src={`${desktopBase}-desktop-1920.webp`}
+        srcSet={`${desktopBase}-desktop-1280.webp 1280w, ${desktopBase}-desktop-1920.webp 1920w, ${desktopBase}-desktop-2560.webp 2560w`}
         sizes="100vw"
         width="1920"
-        height="1200"
-        alt={photograph.alt}
+        height="1080"
+        style={
+          desktopPhotograph.slug === "qutub-visitors"
+            ? { objectPosition: "center top" }
+            : undefined
+        }
+        alt=""
         fetchPriority={priority ? "high" : "low"}
         decoding="async"
         draggable="false"
@@ -33,7 +63,7 @@ export default function HomeHero() {
   const playlist = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [scene, setScene] = useState({
-    slides: [0, null],
+    slides: [{ desktop: 0, phone: 0 }, null],
     base: 0,
     revealing: false,
   });
@@ -94,21 +124,28 @@ export default function HomeHero() {
     const nextSlot = 1 - scene.base;
     if (scene.slides[nextSlot] === null) {
       if (!playlist.current) {
-        const remaining = photographs.map((_, index) => index).slice(1);
-        for (let index = remaining.length - 1; index > 0; index--) {
-          const other = Math.floor(Math.random() * (index + 1));
-          [remaining[index], remaining[other]] = [
-            remaining[other],
-            remaining[index],
-          ];
-        }
-        playlist.current = [0, ...remaining];
+        playlist.current = Object.fromEntries(
+          Object.entries(photographs).map(([device, images]) => {
+            const remaining = images.map((_, index) => index).slice(1);
+            for (let index = remaining.length - 1; index > 0; index--) {
+              const other = Math.floor(Math.random() * (index + 1));
+              [remaining[index], remaining[other]] = [
+                remaining[other],
+                remaining[index],
+              ];
+            }
+            return [device, [0, ...remaining]];
+          }),
+        );
       }
       setScene((current) => {
         const slides = [...current.slides];
-        const position = playlist.current.indexOf(slides[current.base]);
-        slides[nextSlot] =
-          playlist.current[(position + 1) % photographs.length];
+        slides[nextSlot] = Object.fromEntries(
+          Object.entries(playlist.current).map(([device, order]) => {
+            const position = order.indexOf(slides[current.base][device]);
+            return [device, order[(position + 1) % order.length]];
+          }),
+        );
         return { ...current, slides };
       });
       return;
@@ -127,11 +164,18 @@ export default function HomeHero() {
         if (!cancelled)
           setScene((current) => {
             const slides = [...current.slides];
-            const candidate = (slides[nextSlot] + 1) % photographs.length;
-            slides[nextSlot] =
-              candidate === slides[current.base]
-                ? (candidate + 1) % photographs.length
-                : candidate;
+            slides[nextSlot] = Object.fromEntries(
+              Object.entries(playlist.current).map(([device, order]) => {
+                const position = order.indexOf(slides[nextSlot][device]);
+                const candidate = order[(position + 1) % order.length];
+                return [
+                  device,
+                  candidate === slides[current.base][device]
+                    ? order[(position + 2) % order.length]
+                    : candidate,
+                ];
+              }),
+            );
             return { ...current, slides };
           });
       }
@@ -165,6 +209,7 @@ export default function HomeHero() {
         className="ed-story-photographs"
         data-ed-photo-layer
         data-ed-photo-target
+        style={photoStart}
         aria-hidden="true"
       >
         {scene.slides.map((index, slot) => (
@@ -187,7 +232,9 @@ export default function HomeHero() {
             {index !== null && (
               <HeroPhotograph
                 index={index}
-                priority={index === 0 && slot === 0}
+                priority={
+                  index.desktop === 0 && index.phone === 0 && slot === 0
+                }
               />
             )}
           </div>
@@ -205,7 +252,7 @@ export default function HomeHero() {
         </span>
         <span className="ed-story-heading-line">
           <span className="ed-story-script ed-story-script-ordinary">
-            ordinary
+            <span className="ed-story-script-ordinary-text">ordinary</span>
           </span>
           <span className="ed-story-lives">Lives</span>
         </span>

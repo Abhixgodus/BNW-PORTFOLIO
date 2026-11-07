@@ -12,11 +12,46 @@ import {
   journalPortrait,
 } from "../../data/journal.js";
 
-function StoryCard({ post, opening = false }) {
+const journalOpeningPhotograph = {
+  src: "/images/editorial/blog-opening-sunset.jpg",
+  preview: "/_concept/features/blog-opening-sunset",
+  alt: "Silhouettes beside the river as one person photographs the sunset.",
+  width: 6000,
+  height: 4000,
+};
+const journalFeaturedPost = journalPosts.find(
+  (post) => post.slug === "another-day-in-kolkata",
+);
+const journalSubjectPhotographs = {
+  Kolkata: journalPosts.find(
+    (post) => post.slug === "the-flower-market-before-noon",
+  ).cover,
+  Delhi: journalPosts.find((post) => post.slug === "a-walk-through-delhi")
+    .cover,
+  Travel: journalPosts.find((post) => post.slug === "a-few-days-in-the-hills")
+    .cover,
+};
+const journalLatestPosts = journalPosts
+  .slice(2)
+  .filter((post) => post.slug !== journalFeaturedPost?.slug);
+
+function postMeta(post) {
+  return post.location.toLocaleLowerCase() === post.category.toLocaleLowerCase()
+    ? post.category
+    : `${post.category} / ${post.location}`;
+}
+
+function StoryCard({ post, opening = false, revealDelay }) {
   return (
     <article
       className="ed-blog-story"
       {...(opening ? { "data-journal-enter": "" } : {})}
+      {...(revealDelay === undefined
+        ? {}
+        : {
+            "data-ed-reveal": "",
+            style: { "--blog-reveal-delay": `${revealDelay}ms` },
+          })}
     >
       <a
         href={postHref(post)}
@@ -32,9 +67,7 @@ function StoryCard({ post, opening = false }) {
         />
       </a>
       <div className="ed-blog-story-copy">
-        <p className="ed-blog-meta">
-          {post.category} / {post.location}
-        </p>
+        <p className="ed-blog-meta">{postMeta(post)}</p>
         <h2>
           <a href={postHref(post)}>{post.title}</a>
         </h2>
@@ -92,12 +125,19 @@ export function Journal() {
 
   return (
     <div className="ed-blog-page">
+      <div
+        className="ed-blog-opening-backdrop"
+        aria-hidden="true"
+        data-ed-photo-layer
+      >
+        <Photograph photo={journalOpeningPhotograph} sizes="100vw" large />
+      </div>
       <section
         className="ed-blog-opening ed-blog-shell"
         aria-labelledby="journal-title"
       >
         <header className="ed-blog-heading" data-journal-enter>
-          <h1 id="journal-title">The Blog</h1>
+          <h1 id="journal-title">The Journal</h1>
           <p className="ed-blog-script">Notes from the photographs</p>
         </header>
         <div className="ed-blog-leads">
@@ -202,7 +242,7 @@ export function Journal() {
       >
         <div className="ed-blog-section-heading" data-ed-reveal>
           <h2 id="journal-results-title" tabIndex={-1}>
-            {filtered ? "From the blog" : "Latest posts"}
+            {filtered ? "From the journal" : "Latest posts"}
           </h2>
           <p
             className="ed-blog-result-count"
@@ -212,12 +252,12 @@ export function Journal() {
           >
             {filtered
               ? `${matches.length} ${matches.length === 1 ? "entry" : "entries"} found`
-              : "More from my walks and travels"}
+              : "More from my street walks and travels"}
           </p>
         </div>
         <div id="journal-results" className="ed-blog-grid" data-ed-reveal>
-          {(filtered ? matches : journalPosts.slice(2, 5)).map((post) => (
-            <StoryCard key={post.slug} post={post} />
+          {(filtered ? matches : journalLatestPosts).map((post, index) => (
+            <StoryCard key={post.slug} post={post} revealDelay={index * 150} />
           ))}
         </div>
         {filtered && matches.length === 0 && (
@@ -245,38 +285,37 @@ export function Journal() {
           data-ed-photo-mobile
         >
           <div className="ed-blog-backdrop" aria-hidden="true">
-            <Photograph photo={journalPosts[5].cover} sizes="100vw" />
+            <Photograph photo={journalFeaturedPost.cover} sizes="100vw" />
           </div>
           <div className="ed-blog-shell" data-ed-reveal>
             <a
               className="ed-blog-feature-photo"
               data-ed-photo-layer
-              href={postHref(journalPosts[5])}
+              href={postHref(journalFeaturedPost)}
               tabIndex={-1}
               aria-hidden="true"
             >
               <Photograph
-                photo={journalPosts[5].cover}
+                photo={journalFeaturedPost.cover}
                 sizes="(max-width:760px) 90vw, 85vw"
               />
             </a>
             <div className="ed-blog-feature-copy">
               <div>
-                <p className="ed-blog-meta">Kolkata / A photo story</p>
+                <p className="ed-blog-meta">{postMeta(journalFeaturedPost)}</p>
                 <h2 id="journal-feature-title">
-                  <a href={postHref(journalPosts[5])}>
-                    {journalPosts[5].title}
+                  <a href={postHref(journalFeaturedPost)}>
+                    {journalFeaturedPost.title}
                   </a>
                 </h2>
-                <a className="ed-blog-link" href={postHref(journalPosts[5])}>
+                <a
+                  className="ed-blog-link"
+                  href={postHref(journalFeaturedPost)}
+                >
                   Read the story
                 </a>
               </div>
-              <p className="ed-blog-copy">
-                Workshop doors, unfinished figures and people getting on with
-                their day. I don’t always have a plan when I go out with the
-                camera. This is a small set of the things that make me stop.
-              </p>
+              <p className="ed-blog-copy">{journalFeaturedPost.excerpt}</p>
             </div>
           </div>
         </section>
@@ -299,7 +338,7 @@ export function Journal() {
               >
                 <span className="ed-blog-subject-photo">
                   <Photograph
-                    photo={journalPosts[[2, 1, 3][index]].cover}
+                    photo={journalSubjectPhotographs[value]}
                     sizes="(max-width:760px) 28vw, 27vw"
                   />
                 </span>
@@ -367,6 +406,7 @@ export function JournalPost({ post }) {
     <article className="ed-post-page" aria-labelledby="journal-post-title">
       <header
         className="ed-post-hero"
+        data-post-slug={post.slug}
         data-journal-enter
         data-ed-photo-motion="about"
       >
@@ -374,14 +414,15 @@ export function JournalPost({ post }) {
           <Photograph photo={post.cover} eager priority sizes="100vw" />
         </div>
         <div className="ed-post-heading">
-          <p className="ed-blog-meta">
-            {post.category} / {post.location}
-          </p>
+          <p className="ed-blog-meta">{postMeta(post)}</p>
           <h1 id="journal-post-title">{post.title}</h1>
         </div>
       </header>
       <div className="ed-post-body">
-        <div className="ed-post-prose ed-post-intro" data-ed-reveal>
+        <div
+          className="ed-post-prose ed-post-intro"
+          data-journal-enter="together"
+        >
           {post.opening.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -413,9 +454,9 @@ export function JournalPost({ post }) {
               className={`ed-post-prose${photos.length === 2 ? " is-paired" : ""}`}
               data-ed-reveal
             >
-              {photos.map((photo) => (
-                <p key={photo.src}>{photo.note}</p>
-              ))}
+              {photos.map(
+                (photo) => photo.note && <p key={photo.src}>{photo.note}</p>,
+              )}
               {i === 2 && <p>{post.ending}</p>}
             </div>
             {i === 1 && (

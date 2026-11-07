@@ -1,7 +1,7 @@
 # Cloudflare Pages hosting
 
 The Pages project is `abhimanyusharma`; its public domain is
-`https://abhimanyuphoto.pages.dev`. Production builds from `main`; other branches
+`https://abhimanyusharma.pages.dev`. Production builds from `main`; other branches
 receive separate preview URLs. Both use the prerendered React/Tailwind build.
 
 Build: `node cloudflare/pages-build.mjs`

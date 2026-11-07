@@ -13,6 +13,19 @@ export const aboutPortrait = {
   width: 2466,
   height: 3083,
 };
+export const aboutHeroPhotograph = {
+  src: "/images/editorial/abhimanyu-about-hero-headroom.jpg",
+  preview: "/_concept/features/abhimanyu-about-hero-desktop",
+  alt: "A black and white portrait of Abhimanyu in an embroidered kurta, his hands resting together at his chest.",
+  width: 6000,
+  height: 4000,
+  mobile: {
+    src: "/images/editorial/abhimanyu-about-hero-mobile.jpg",
+    preview: "/_concept/features/abhimanyu-about-hero-mobile",
+    width: 2875,
+    height: 4313,
+  },
+};
 export const homePortraits = [
   {
     src: "/images/editorial/abhimanyu-home-01.jpg",
@@ -152,8 +165,8 @@ export const editorialLinks = {
 };
 export const editorialLabels = {
   home: "Home",
-  gallery: "Gallery",
-  journal: "Blog",
+  gallery: "Portfolio",
+  journal: "Journal",
   about: "About",
   contact: "Inquire",
 };

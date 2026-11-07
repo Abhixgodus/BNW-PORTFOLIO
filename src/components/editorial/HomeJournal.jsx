@@ -15,7 +15,7 @@ import HandwrittenSignature from "./HandwrittenSignature.jsx";
 const journal = [
   {
     slug: "kumartuli",
-    postSlug: "another-day-in-kolkata",
+    postSlug: "idols-taking-shape-in-kumartuli",
     place: "Kolkata",
     title: "INSIDE THE WORKSHOPS",
     photo: photographs[1],
@@ -146,9 +146,6 @@ export default function HomeJournal({ openCollection, prefetch }) {
             </span>
           </p>
         </div>
-        <a className="ed-journal-about-more" href={editorialLinks.about}>
-          More about me
-        </a>
       </section>
 
       <section
@@ -172,6 +169,9 @@ export default function HomeJournal({ openCollection, prefetch }) {
               I began with my phone. I still photograph for much the same
               reason.
             </p>
+            <a className="ed-journal-about-more" href={editorialLinks.about}>
+              More about me
+            </a>
           </div>
         </div>
       </section>
@@ -211,7 +211,7 @@ export default function HomeJournal({ openCollection, prefetch }) {
       >
         <div className="ed-journal-section-head" data-ed-reveal>
           <h2 className="ed-journal-heading" id="home-journal-title">
-            FROM THE BLOG
+            FROM THE JOURNAL
           </h2>
         </div>
         <div className="ed-journal-entry-grid tw:grid">
@@ -246,7 +246,7 @@ export default function HomeJournal({ openCollection, prefetch }) {
         </div>
         <div className="ed-home-journal-cta" data-ed-reveal>
           <a className="ed-home-journal-link" href={editorialLinks.journal}>
-            Read the blog
+            Read the journal
           </a>
         </div>
       </section>
@@ -342,7 +342,7 @@ export function HomeFooter() {
             <a href="https://www.instagram.com/abhi.jxl/">Instagram</a>
             <a href="https://www.instagram.com/abhi.jxl.bnw/">Monochrome</a>
             <a href={"mailto:" + email}>Email me</a>
-            <a href={editorialLinks.journal}>Blog</a>
+            <a href={editorialLinks.journal}>Journal</a>
           </nav>
         </div>
       </div>

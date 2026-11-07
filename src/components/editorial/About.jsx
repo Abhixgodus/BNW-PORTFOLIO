@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  aboutHeroPhotograph,
   aboutPortrait,
   editorialLinks,
   homePortraits,
@@ -7,7 +8,7 @@ import {
   series,
 } from "../../data/editorial.js";
 import { Photograph, Icon } from "./Primitives.jsx";
-import { preloadCollection } from "./usePhotoViewer.js";
+import { findPost, postHref } from "../../data/journal.js";
 import HandwrittenSignature from "./HandwrittenSignature.jsx";
 
 const questions = [
@@ -58,12 +59,16 @@ const approach = [
   },
 ];
 
-const projects = ["kumartuli", "sikkim"].map((slug) =>
-  series.find((item) => item.slug === slug),
-);
+const projects = [
+  ["kumartuli", "another-day-in-kolkata"],
+  ["sikkim", "a-few-days-in-the-hills"],
+].map(([collection, slug]) => ({
+  ...series.find((item) => item.slug === collection),
+  post: findPost(slug),
+}));
 const destinations = [
   {
-    title: "THE GALLERY",
+    title: "THE PORTFOLIO",
     label: "Explore the photographs",
     href: editorialLinks.gallery,
     photo: series.find((item) => item.slug === "mullick-market").cover,
@@ -76,8 +81,8 @@ const destinations = [
     photo: homePortraits[1],
   },
   {
-    title: "READ THE BLOG",
-    label: "Visit the blog",
+    title: "READ THE JOURNAL",
+    label: "Visit the journal",
     href: editorialLinks.journal,
     photo: photographs[10],
   },
@@ -246,12 +251,98 @@ function AboutQuestions() {
   );
 }
 
-export default function About({ openCollection }) {
+export default function About() {
+  const page = useRef(null);
+
+  useEffect(() => {
+    const element = page.current;
+    const site = element.closest(".ed-site");
+    const stage = element.querySelector(".ed-about-hero-stage");
+    const introduction = element.querySelector(".ed-about-intro");
+    let boundary = 0,
+      wasSolid;
+    const sync = () => {
+      const solid = scrollY >= boundary;
+      if (solid === wasSolid) return;
+      wasSolid = solid;
+      site.classList.toggle("is-past-about-hero", solid);
+    };
+    const measure = () => {
+      // The intro's visible top changes once pinned; its flow boundary does not.
+      boundary =
+        element.getBoundingClientRect().top + scrollY + stage.offsetHeight;
+      sync();
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(stage);
+    observer.observe(introduction);
+    window.addEventListener("scroll", sync, { passive: true });
+    measure();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", sync);
+      site.classList.remove("is-past-about-hero");
+    };
+  }, []);
+
   return (
-    <div className="ed-about-page">
+    <div className="ed-about-page" ref={page}>
+      <div className="ed-about-hero-stage">
+        <section
+          className="ed-about-hero"
+          data-ed-photo-motion="about"
+          aria-labelledby="about-title"
+        >
+          <div
+            className="ed-about-hero-image"
+            data-ed-photo-layer
+            data-about-hero-image
+          >
+            <Photograph
+              photo={aboutHeroPhotograph}
+              mobilePhoto={aboutHeroPhotograph.mobile}
+              eager
+              priority
+              large
+              sizes="100vw"
+            />
+          </div>
+          <div className="ed-about-hero-shade" aria-hidden="true" />
+          <div className="ed-about-hero-copy">
+            <h1 id="about-title">
+              <span className="ed-about-hero-mobile-title">
+                <span data-about-hero-line="first">FOR ONCE, I'M</span>
+                <span data-about-hero-line="second">IN THE FRAME.</span>
+              </span>
+              <span className="ed-about-hero-desktop-name">
+                <span data-about-hero-line="first">ABHIMANYU</span>
+                <span data-about-hero-line="second">SHARMA</span>
+              </span>
+            </h1>
+            <p
+              className="ed-about-hero-tagline"
+              data-about-hero-caption="primary"
+            >
+              SOMETIMES I’M IN THE STORY TOO!
+            </p>
+            <p
+              className="ed-about-hero-subtitle"
+              data-about-hero-caption="secondary"
+            >
+              Usually i’m the one taking the photos
+            </p>
+            <p
+              className="ed-about-hero-mobile-subtitle"
+              data-about-hero-caption="secondary"
+            >
+              I'm usually the one taking the photograph.
+            </p>
+          </div>
+        </section>
+      </div>
       <section
         className="ed-about-intro ed-about-shell"
-        aria-labelledby="about-title"
+        aria-labelledby="about-intro-title"
       >
         <figure className="ed-about-portrait" data-about-enter>
           <Photograph
@@ -269,11 +360,11 @@ export default function About({ openCollection }) {
           <div className="ed-about-signature" data-about-enter>
             <HandwrittenSignature />
           </div>
-          <h1 id="about-title" data-about-enter>
+          <h2 id="about-intro-title" data-about-enter>
             An engineering student,
             <br />
             usually out with a camera.
-          </h1>
+          </h2>
           <p className="ed-about-body" data-about-enter>
             I’m based in Kolkata and studying engineering. I like taking
             photographs when I’m outside, especially of places I visit and
@@ -375,17 +466,12 @@ export default function About({ openCollection }) {
           </div>
           <div className="ed-about-project-grid">
             {projects.map((project) => (
-              <button
-                type="button"
+              <a
                 className="ed-about-project"
                 data-ed-reveal
                 key={project.slug}
-                onClick={() => openCollection(project)}
-                onPointerEnter={() =>
-                  preloadCollection(project.slug).catch(() => {})
-                }
-                onFocus={() => preloadCollection(project.slug).catch(() => {})}
-                aria-label={`View ${project.title} photographs`}
+                href={postHref(project.post)}
+                aria-label={`Read ${project.post.title}`}
               >
                 <Photograph
                   photo={project.cover}
@@ -396,7 +482,7 @@ export default function About({ openCollection }) {
                 <span className="ed-about-project-name">
                   {project.title[0] + project.title.slice(1).toLowerCase()}
                 </span>
-              </button>
+              </a>
             ))}
           </div>
         </section>

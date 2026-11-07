@@ -231,7 +231,7 @@ function Gallery({ openCollection, activeSlug, hovered, setHovered }) {
           07
         </span>
         <h1 id="gallery-title" className="ed-page-title">
-          <span>Gallery</span>
+          <span>Portfolio</span>
         </h1>
       </div>
     </section>

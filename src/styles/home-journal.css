@@ -843,10 +843,14 @@
 @media (max-width: 760px) {
   .ed-home .ed-publications {
     --publication-title-size: 14vw;
-    --publication-top-space: max(96px, 12svh);
+    --publication-top-space: 26px;
   }
   .ed-home .ed-publications-sticky {
     gap: 20px;
+  }
+  .ed-home .has-publication-scroll .ed-publications-sticky {
+    top: var(--header-height);
+    height: calc(100svh - var(--header-height));
   }
   .ed-home .ed-publication {
     width: min(
@@ -854,7 +858,7 @@
       48svh,
       calc(
         (
-            100svh - var(--publication-top-space) -
+            100svh - var(--header-height) - var(--publication-top-space) -
               var(--publication-title-size) * 1.14 - 94px
           ) *
           0.8
@@ -929,7 +933,7 @@
     display: block;
     max-width: 40ch;
     margin: 26px auto 0;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
   }
   .ed-home .ed-journal-about-more {
@@ -937,8 +941,8 @@
     justify-content: center;
     min-width: 124px;
     min-height: 42px;
-    margin-top: 24px;
-    padding: 3px 18px;
+    margin-top: 40px;
+    padding: 6px 18px;
     background: var(--paper);
     color: var(--black);
     font-size: 12px;
@@ -953,8 +957,11 @@
   .ed-home .ed-journal-body {
     max-width: 45ch;
   }
+  .ed-home .ed-journal-about + .ed-journal-thought {
+    margin-top: 40px;
+  }
   .ed-home .ed-journal-thought-composition {
-    padding-block: 65px;
+    padding-block: 68px 36px;
   }
   .ed-home .ed-journal-thought-center > .ed-journal-script {
     margin-top: 4px;
@@ -985,6 +992,7 @@
     margin-top: 18px;
   }
   .ed-home .ed-journal-closing {
+    margin-top: 65px;
     min-height: 600px;
     padding: 112px 24px;
   }
@@ -1028,9 +1036,6 @@
   }
 }
 @media (max-width: 600px) {
-  .ed-home .ed-journal-thought-composition {
-    padding-block: 120px;
-  }
   .ed-home .ed-journal-thought-center > .ed-journal-script {
     font-size: 19px;
     margin-bottom: 10px;
